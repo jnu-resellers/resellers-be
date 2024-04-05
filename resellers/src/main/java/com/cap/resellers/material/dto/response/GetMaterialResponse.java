@@ -1,15 +1,16 @@
 package com.cap.resellers.material.dto.response;
 
-import com.cap.resellers.material.dto.ProductDto;
+import com.cap.resellers.material.dto.GetMaterialProductDto;
 import lombok.Builder;
 
 import java.util.List;
-
 @Builder
-public record GetMaterialResponse(List<ProductDto> materials) {
-    public static GetMaterialResponse of(List<ProductDto> materials) {
+public record GetMaterialResponse(String title, String writer, List<GetMaterialProductDto> products) {
+    public static GetMaterialResponse of(String title, String writer, List<GetMaterialProductDto> products) {
         return GetMaterialResponse.builder()
-                .materials(materials)
+                .title(title)
+                .writer(writer)
+                .products(products)
                 .build();
     }
 }

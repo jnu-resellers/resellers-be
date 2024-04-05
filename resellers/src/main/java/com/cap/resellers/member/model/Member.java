@@ -2,6 +2,7 @@ package com.cap.resellers.member.model;
 
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.material.model.Material;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString
+@ToString(exclude = {"materials"})
 @Entity
 @Table(name = Member.ENTITY_PREFIX + "_TB")
 @Builder()
@@ -28,5 +29,6 @@ public class Member extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "member")
+    @JsonManagedReference
     private List<Material> materials = new ArrayList<>();
 }

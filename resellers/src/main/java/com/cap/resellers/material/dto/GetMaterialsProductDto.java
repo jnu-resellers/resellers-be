@@ -6,9 +6,9 @@ import lombok.Builder;
 import java.util.Optional;
 
 @Builder
-public record ProductDto(Optional<String> preSignedUrl, Long id, String title, String jobType, Long totalPrice) {
-    public static ProductDto of(Optional<String> preSignedUrl, Material material, Long totalPrice) {
-        return ProductDto.builder()
+public record GetMaterialsProductDto(Optional<String> preSignedUrl, Long id, String title, String jobType, Long totalPrice) {
+    public static GetMaterialsProductDto of(Optional<String> preSignedUrl, Material material, Long totalPrice) {
+        return GetMaterialsProductDto.builder()
                 .preSignedUrl(preSignedUrl)
                 .id(material.getId())
                 .title(material.getTitle())

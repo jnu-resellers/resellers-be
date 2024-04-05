@@ -2,6 +2,8 @@ package com.cap.resellers.product.model;
 
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.material.model.Material;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,8 +13,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString
 @Entity
+@ToString(exclude = {"material", "images"})
 @Table(name = Product.ENTITY_PREFIX + "_TB")
 @Builder()
 public class Product extends BaseEntity {
@@ -26,6 +28,7 @@ public class Product extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MATERIAL_FK")
+    @JsonBackReference
     private Material material;
 
     @Column(name = ENTITY_PREFIX + "_NAME", nullable = false)
@@ -44,6 +47,7 @@ public class Product extends BaseEntity {
     private Long seller;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Image> images = new ArrayList<>();
 
     public static Product createProduct(Long seller, String name, Long price, String description, List<Image> images) {

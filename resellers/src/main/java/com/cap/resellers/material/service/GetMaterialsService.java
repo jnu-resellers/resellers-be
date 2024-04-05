@@ -1,12 +1,11 @@
 package com.cap.resellers.material.service;
 
-import com.cap.resellers.material.dto.ProductDto;
-import com.cap.resellers.material.dto.response.GetMaterialResponse;
+import com.cap.resellers.material.dto.GetMaterialsProductDto;
+import com.cap.resellers.material.dto.response.GetMaterialsResponse;
 import com.cap.resellers.material.model.Material;
 import com.cap.resellers.material.repository.MaterialRepository;
 import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
-import com.cap.resellers.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +15,15 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GetMaterialsService {
-    private final ProductRepository productRepository;
     private final GetImageService getImageService;
     private final MaterialRepository materialRepository;
 
-    public GetMaterialResponse execute() {
-        return GetMaterialResponse.of(
+    public GetMaterialsResponse execute() {
+        return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
                         .map(material -> {
                             Optional<String> preSignedUrl = getImageService.execute(getImageId(material));
-                            return ProductDto.of(preSignedUrl, material, totalPrice(material));
+                            return GetMaterialsProductDto.of(preSignedUrl, material, totalPrice(material));
                         })
                         .collect(Collectors.toList())
         );
@@ -36,6 +34,7 @@ public class GetMaterialsService {
                 .mapToLong(Product::getPrice)
                 .sum();
     }
+
 
     private Long getImageId(Material material) {
         return material.getProducts().stream()

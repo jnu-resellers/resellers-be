@@ -3,6 +3,8 @@ package com.cap.resellers.material.model;
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString
+@ToString(exclude = {"member", "products"})
 @Entity
 @Table(name = Material.ENTITY_PREFIX + "_TB")
 @Builder()
@@ -27,6 +29,7 @@ public class Material extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_FK")
+    @JsonBackReference
     private Member member;
 
     @Column(name = ENTITY_PREFIX + "_TITLE")
@@ -37,6 +40,7 @@ public class Material extends BaseEntity{
     private JobType jobType;
 
     @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     public static Material createMaterial(Member member, String title, JobType jobType, List<Product> products) {

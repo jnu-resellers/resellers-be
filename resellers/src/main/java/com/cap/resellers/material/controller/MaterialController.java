@@ -7,7 +7,9 @@ import com.cap.resellers.material.dto.ImageDTO;
 import com.cap.resellers.material.dto.request.CreateMaterialRequest;
 import com.cap.resellers.material.dto.response.CreateMaterialResponse;
 import com.cap.resellers.material.dto.response.GetMaterialResponse;
+import com.cap.resellers.material.dto.response.GetMaterialsResponse;
 import com.cap.resellers.material.service.CreateMaterialService;
+import com.cap.resellers.material.service.GetMaterialService;
 import com.cap.resellers.material.service.GetMaterialsService;
 import com.cap.resellers.material.service.UploadImageService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class MaterialController {
     private final CreateMaterialService createMaterialService;
     private final UploadImageService uploadImageService;
     private final GetMaterialsService getMaterialsService;
+    private final GetMaterialService getMaterialService;
     @PostMapping("/board/material")
     public ApiResponse<ApiResponse.CustomBody<Void>> createMaterial(@RequestBody CreateMaterialRequest request) {
         Long memberId = 1L;
@@ -34,8 +37,14 @@ public class MaterialController {
     }
 
     @GetMapping("/board/materials")
-    public ApiResponse<ApiResponse.CustomBody<GetMaterialResponse>> getMaterials() {
-        GetMaterialResponse response = getMaterialsService.execute();
+    public ApiResponse<ApiResponse.CustomBody<GetMaterialsResponse>> getMaterials() {
+        GetMaterialsResponse response = getMaterialsService.execute();
+        return ApiResponseGenerator.success(response,HttpStatus.OK);
+    }
+
+    @GetMapping("/board/materials/{materialId}")
+    public ApiResponse<ApiResponse.CustomBody<GetMaterialResponse>> getMaterial(@PathVariable Long materialId) {
+        GetMaterialResponse response = getMaterialService.execute(materialId);
         return ApiResponseGenerator.success(response,HttpStatus.OK);
     }
 }
