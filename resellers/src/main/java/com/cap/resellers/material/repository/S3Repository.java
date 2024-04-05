@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 import java.time.Duration;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,20 @@ public class S3Repository {
         int pos = fileName.lastIndexOf(".");
         String ext = fileName.substring(pos + 1);
         return CONTENT_TYPE_PREFIX + ext;
+    }
+
+    public Optional<String> get(Long imageId) {
+        if(imageId == null) {
+            return Optional.empty();
+        }
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(imageId + "_")
+                .build();
+        GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMinutes(10))
+                .getObjectRequest(getObjectRequest)
+                .build();
+        return Optional.of(s3Presigner.presignGetObject(presignRequest).url().toString());
     }
 }
