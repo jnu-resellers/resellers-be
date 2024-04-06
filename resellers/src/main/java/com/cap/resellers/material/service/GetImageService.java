@@ -16,5 +16,4 @@ public class GetImageService {
     public Optional<String> execute(Long imageId) {
         return s3Repository.get(imageId);
     }
-
 }
