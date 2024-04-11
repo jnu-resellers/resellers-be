@@ -29,7 +29,7 @@ public class MaterialController {
     private final GetMaterialsService getMaterialsService;
     private final GetMaterialService getMaterialService;
     @PostMapping("/board/material")
-    public ApiResponse<ApiResponse.CustomBody<Void>> createMaterial(@RequestBody CreateMaterialRequest request) {
+    public ApiResponse<ApiResponse.CustomBody<CreateMaterialResponse>> createMaterial(@RequestBody CreateMaterialRequest request) {
         Long memberId = 1L;
         List<CreateMaterialProductDTO> createMaterialProductDTOS = createMaterialService.execute(request, memberId);
         Map<Long, String> imageUrlMap = uploadImageService.execute(ImageDTO.of(request, createMaterialProductDTOS));
