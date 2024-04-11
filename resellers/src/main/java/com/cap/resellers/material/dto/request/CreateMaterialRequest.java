@@ -1,5 +1,6 @@
 package com.cap.resellers.material.dto.request;
 
+import com.cap.resellers.material.dto.AnswerDTO;
 import lombok.Builder;
 
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.List;
 public record CreateMaterialRequest(
         String title,
         String itemType,
-        List<ProductRequest> products
+        List<ProductRequest> products,
+        String jobType,
+        AnswerDTO answers
 ) {
     @Builder
     public CreateMaterialRequest {

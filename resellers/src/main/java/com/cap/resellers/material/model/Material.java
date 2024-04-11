@@ -2,6 +2,7 @@ package com.cap.resellers.material.model;
 
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.member.model.Member;
+import com.cap.resellers.mentoring.model.Mentoring;
 import com.cap.resellers.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -43,12 +44,17 @@ public class Material extends BaseEntity{
     @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
-    public static Material createMaterial(Member member, String title, ItemType itemType, List<Product> products) {
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTORING_FK", nullable = true, referencedColumnName = "MENTORING_PK")
+    private Mentoring mentoring;
+
+    public static Material createMaterial(Member member, String title, JobType jobType, List<Product> products, Mentoring mentoring) {
         Material material = Material.builder()
                 .products(products)
                 .member(member)
                 .title(title)
-                .itemType(itemType)
+                .jobType(jobType)
+                .mentoring(mentoring)
                 .build();
         for (Product product : products) {
             product.mappingMaterial(material);

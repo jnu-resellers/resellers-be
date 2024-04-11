@@ -8,6 +8,8 @@ import com.cap.resellers.material.model.Material;
 import com.cap.resellers.material.repository.MaterialRepository;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.member.repository.MemberRepository;
+import com.cap.resellers.mentoring.model.Mentoring;
+import com.cap.resellers.mentoring.repository.MentoringRepository;
 import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
 import com.cap.resellers.product.repository.ImageRepository;
@@ -27,14 +29,11 @@ public class CreateMaterialService {
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
+    private final MentoringRepository mentoringRepository;
 
     @Transactional
     public List<CreateMaterialProductDTO> execute(CreateMaterialRequest request, Long memberId) {
-        Member member = memberRepository.save(Member.builder()
-                .id(memberId)
-                .name("test")
-                .build());
-
+        Member member = memberRepository.findById(memberId).orElseThrow(NullPointerException::new);
         List<Product> productList = new ArrayList<>();
 
         for(ProductRequest productRequestDTO : request.products()) {
@@ -43,18 +42,25 @@ public class CreateMaterialService {
                 images.add(Image.createImage());
             }
             imageRepository.saveAll(images);
-            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images, productRequestDTO.quantity());
+            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images);
             productRepository.save(product);
             productList.add(product);
         }
 
-        Material material = Material.createMaterial(member, request.title(), ItemType.valueOf(request.jobType()), productList);
-        material = materialRepository.save(material);
+        if(request.answers().isMentoring()){
+            Mentoring mentoring = Mentoring.createMentoring(request.answers().first(), request.answers().second(), request.answers().third());
+            mentoringRepository.save(mentoring);
+            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, mentoring);
+            materialRepository.save(material);
+        }else {
+            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, null);
+            materialRepository.save(material);
+        }
 
         List<CreateMaterialProductDTO> productDTOs = new ArrayList<>();
 
         for(Product product : productList) {
-            CreateMaterialProductDTO productDTO = CreateMaterialProductDTO.of(material, product);
+            CreateMaterialProductDTO productDTO = CreateMaterialProductDTO.of(product);
             productDTOs.add(productDTO);
         }
 
