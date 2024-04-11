@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,28 +36,30 @@ public class Product extends BaseEntity {
     private String name;
 
     @Column(name = ENTITY_PREFIX + "_PRICE", nullable = false)
-    private Long price;
+    private Integer price;
 
     @Column(name = ENTITY_PREFIX + "_DESCRIPTION", nullable = false)
     private String description;
 
-    @Column(name = ENTITY_PREFIX + "_BUYER")
-    private Long buyer;
 
     @Column(name = ENTITY_PREFIX + "_SELLER", nullable = false)
     private Long seller;
+
+    @Column(name = ENTITY_PREFIX + "_QUANTITY", nullable = false)
+    private Integer quantity;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Image> images = new ArrayList<>();
 
-    public static Product createProduct(Long seller, String name, Long price, String description, List<Image> images) {
+    public static Product createProduct(Long seller, String name, Integer price, String description, List<Image> images, Integer quantity) {
         Product product1 = Product.builder()
                 .seller(seller)
                 .name(name)
                 .price(price)
                 .description(description)
                 .images(images)
+                .quantity(quantity)
                 .build();
         for (Image image : images) {
             image.mappingProduct(product1);

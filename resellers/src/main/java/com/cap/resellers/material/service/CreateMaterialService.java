@@ -3,7 +3,7 @@ package com.cap.resellers.material.service;
 import com.cap.resellers.material.dto.CreateMaterialProductDTO;
 import com.cap.resellers.material.dto.request.CreateMaterialRequest;
 import com.cap.resellers.material.dto.request.ProductRequest;
-import com.cap.resellers.material.model.JobType;
+import com.cap.resellers.material.model.ItemType;
 import com.cap.resellers.material.model.Material;
 import com.cap.resellers.material.repository.MaterialRepository;
 import com.cap.resellers.member.model.Member;
@@ -42,7 +42,7 @@ public class CreateMaterialService {
                 images.add(Image.createImage());
             }
             imageRepository.saveAll(images);
-            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images);
+            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images, productRequestDTO.quantity());
             productRepository.save(product);
             productList.add(product);
         }
@@ -50,10 +50,10 @@ public class CreateMaterialService {
         if(request.answers().isMentoring()){
             Mentoring mentoring = Mentoring.createMentoring(request.answers().first(), request.answers().second(), request.answers().third());
             mentoringRepository.save(mentoring);
-            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, mentoring);
+            Material material = Material.createMaterial(member, request.title(), ItemType.valueOf(request.itemType()), productList, mentoring);
             materialRepository.save(material);
         }else {
-            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, null);
+            Material material = Material.createMaterial(member, request.title(), ItemType.valueOf(request.itemType()), productList, null);
             materialRepository.save(material);
         }
 
