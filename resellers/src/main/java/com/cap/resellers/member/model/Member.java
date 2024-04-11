@@ -28,6 +28,15 @@ public class Member extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_NAME", nullable = false)
     private String name;
 
+    @Column(name = ENTITY_PREFIX + "_BANK_NAME")
+    private String bankName;
+
+    @Column(name = ENTITY_PREFIX + "_ACCOUNT_NUMBER")
+    private String accountNumber;
+
+    @Column(name = ENTITY_PREFIX + "_CONTACT", nullable = false)
+    private String contact;
+
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<Material> materials = new ArrayList<>();

@@ -1,13 +1,11 @@
 package com.cap.resellers.material.model;
 
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
-
-public enum JobType {
+public enum ItemType {
     FOOD("요식업");
 
     private String value;
 
-    JobType(String value) {
+    ItemType(String value) {
         this.value = value;
     }
 }

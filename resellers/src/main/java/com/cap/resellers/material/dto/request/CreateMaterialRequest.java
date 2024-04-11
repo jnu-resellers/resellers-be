@@ -6,7 +6,7 @@ import java.util.List;
 
 public record CreateMaterialRequest(
         String title,
-        String jobType,
+        String itemType,
         List<ProductRequest> products
 ) {
     @Builder

@@ -8,8 +8,9 @@ public record ProductRequest(
 
         List<String> fileNames,
         String name,
-        Long price,
-        String description
+        Integer price,
+        String description,
+        Integer quantity
 ) {
     @Builder
     public ProductRequest {

@@ -37,18 +37,18 @@ public class Material extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(name = ENTITY_PREFIX + "_JOB_TYPE")
-    private JobType jobType;
+    private ItemType itemType;
 
     @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
-    public static Material createMaterial(Member member, String title, JobType jobType, List<Product> products) {
+    public static Material createMaterial(Member member, String title, ItemType itemType, List<Product> products) {
         Material material = Material.builder()
                 .products(products)
                 .member(member)
                 .title(title)
-                .jobType(jobType)
+                .itemType(itemType)
                 .build();
         for (Product product : products) {
             product.mappingMaterial(material);

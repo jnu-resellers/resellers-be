@@ -5,6 +5,7 @@ import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
 import lombok.Builder;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public record CreateMaterialProductDTO(
@@ -12,7 +13,7 @@ public record CreateMaterialProductDTO(
         String writer,
         Long productId,
         String name,
-        Long price,
+        Integer price,
         String description,
         List<Long> imageIds
 ) {

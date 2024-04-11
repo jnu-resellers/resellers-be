@@ -5,7 +5,7 @@ import java.util.List;
 
 public record ProductResponse(
         String name,
-        Long price,
+        Integer price,
         String description,
         List<String> presignedUrls
 ) {
