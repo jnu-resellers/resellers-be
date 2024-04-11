@@ -9,7 +9,6 @@ public record CreateMaterialRequest(
         String title,
         String itemType,
         List<ProductRequest> products,
-        String jobType,
         AnswerDTO answers
 ) {
     @Builder

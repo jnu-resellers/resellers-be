@@ -48,12 +48,12 @@ public class Material extends BaseEntity{
     @JoinColumn(name = "MENTORING_FK", nullable = true, referencedColumnName = "MENTORING_PK")
     private Mentoring mentoring;
 
-    public static Material createMaterial(Member member, String title, JobType jobType, List<Product> products, Mentoring mentoring) {
+    public static Material createMaterial(Member member, String title, ItemType itemType, List<Product> products, Mentoring mentoring) {
         Material material = Material.builder()
                 .products(products)
                 .member(member)
                 .title(title)
-                .jobType(jobType)
+                .itemType(itemType)
                 .mentoring(mentoring)
                 .build();
         for (Product product : products) {

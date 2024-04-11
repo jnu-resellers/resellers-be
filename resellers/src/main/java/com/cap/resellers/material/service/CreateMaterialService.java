@@ -42,7 +42,7 @@ public class CreateMaterialService {
                 images.add(Image.createImage());
             }
             imageRepository.saveAll(images);
-            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images);
+            Product product = Product.createProduct(memberId, productRequestDTO.name(), productRequestDTO.price(), productRequestDTO.description(), images, productRequestDTO.quantity());
             productRepository.save(product);
             productList.add(product);
         }
@@ -50,10 +50,10 @@ public class CreateMaterialService {
         if(request.answers().isMentoring()){
             Mentoring mentoring = Mentoring.createMentoring(request.answers().first(), request.answers().second(), request.answers().third());
             mentoringRepository.save(mentoring);
-            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, mentoring);
+            Material material = Material.createMaterial(member, request.title(), ItemType.valueOf(request.itemType()), productList, mentoring);
             materialRepository.save(material);
         }else {
-            Material material = Material.createMaterial(member, request.title(), JobType.valueOf(request.jobType()), productList, null);
+            Material material = Material.createMaterial(member, request.title(), ItemType.valueOf(request.itemType()), productList, null);
             materialRepository.save(material);
         }
 
