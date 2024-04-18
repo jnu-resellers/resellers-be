@@ -1,0 +1,34 @@
+version: '3'
+services:
+  resellers-mariadb:
+    image: mariadb:10.6
+    container_name: resellers-mariadb
+    expose:
+      - "3306"
+    volumes:
+      - ./resources/resellers-local-environment/mariadb-init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+    networks:
+      - resellers-network
+
+  eatceed-backend:
+    image: hwangdaesun/resellers-dev:1.0.0
+    container_name: resellers-spring
+    ports:
+      - 8080:8080
+    depends_on:
+      - resellers-mariadb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://resellers-mariadb:3306/resellers?serverTimezone=Asia/Seoul
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - resellers-network
+    restart:
+      on-failure
+
+
+networks:
+  resellers-network:
