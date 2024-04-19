@@ -37,7 +37,7 @@ public class Material extends BaseEntity{
     private String title;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = ENTITY_PREFIX + "_JOB_TYPE")
+    @Column(name = ENTITY_PREFIX + "_ITEM_TYPE")
     private ItemType itemType;
 
     @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
