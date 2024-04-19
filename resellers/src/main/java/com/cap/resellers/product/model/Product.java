@@ -5,6 +5,8 @@ import com.cap.resellers.material.model.Material;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,6 +19,7 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"material", "images"})
 @Table(name = Product.ENTITY_PREFIX + "_TB")
+@DynamicInsert
 @Builder()
 public class Product extends BaseEntity {
 
@@ -48,6 +51,10 @@ public class Product extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_QUANTITY", nullable = false)
     private Integer quantity;
 
+    @Column(name = ENTITY_PREFIX + "_IS_SOLD", nullable = false)
+    @ColumnDefault("'false'")
+    private Boolean isSold = false;
+
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Image> images = new ArrayList<>();
@@ -69,5 +76,9 @@ public class Product extends BaseEntity {
 
     public void mappingMaterial(Material material) {
         this.material = material;
+    }
+
+    public void sold() {
+        this.isSold = true;
     }
 }
