@@ -14,7 +14,7 @@ services:
       - resellers-network
 
   eatceed-backend:
-    image: hwangdaesun/resellers-dev:1.0.0
+    image: hwangdaesun/resellers-dev:latest
     container_name: resellers-spring
     ports:
       - 8080:8080
@@ -22,8 +22,9 @@ services:
       - resellers-mariadb
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mariadb://resellers-mariadb:3306/resellers?serverTimezone=Asia/Seoul
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - CLOUD_AWS_ACCESS_KEY=${CLOUD_AWS_ACCESS_KEY}
+      - CLOUD_AWS_SECRET_KEY=${CLOUD_AWS_SECRET_KEY}
     networks:
       - resellers-network
     restart:
