@@ -12,4 +12,4 @@ COPY ${JAR_FILE} resellers.jar
 EXPOSE 8080
 
 # CMD 명령어에서 CSV 파일의 위치를 절대 경로로 지정
-CMD ["java", "-jar", "-Dspring.profiles.active=dev", "eatceed.jar"]
+CMD ["java", "-jar", "-Dspring.profiles.active=dev", "resellers.jar"]
