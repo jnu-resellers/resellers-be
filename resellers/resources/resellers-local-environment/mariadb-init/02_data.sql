@@ -1,28 +1,35 @@
-use resellers;
+-- Use resellers database
+USE resellers;
 
-SET foreign_key_checks = 0;
+-- Insert members into MEMBER_TB
+INSERT INTO MEMBER_TB
+VALUES
+    (1, '이진혁', TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '98102214801017', '기업은행', '010-2293-5028'),
+    (2, '황대선', TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '1231231231', '기업은행', '010-1212-1212');
 
-truncate table MEMBER_TB;
-truncate table IMAGE_TB;
-truncate table MATERIAL_TB;
-truncate table PRODUCT_TB;
-truncate table TRADE_TB;
+-- Insert materials into MATERIAL_TB
+INSERT INTO MATERIAL_TB
+VALUES
+    (1, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 'FOOD', '응애', 1, NULL),
+    (2, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 'FOOD', '응애2', 2, NULL),
+    (3, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 'FOOD', '응애3', 1, NULL);
 
-SET foreign_key_checks = 1;
+-- Insert products into PRODUCT_TB
+INSERT INTO PRODUCT_TB
+VALUES
+    (1, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '상품설명', '상품이름', 1000, 2, 20, FALSE, 1),
+    (2, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '상품설명2', '상품이름2', 2000, 1, 10, FALSE, 2),
+    (3, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '상품설명3', '상품이름3', 3000, 1, 30, FALSE, 3),
+    (4, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), '상품설명3', '상품이름3', 4000, 1, 50, FALSE, 1);
 
-insert into MEMBER_TB values (1,'이진혁',TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30, current_time), '98102214801017', '기업은행','010-2293-5028');
-insert into MEMBER_TB values (2,'황대선',TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30, current_time), '1231231231', '기업은행','010-1212-1212');
-insert into MATERIAL_TB values (1, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30, current_time), 'FOOD','응애',1),
-                               (2, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30, current_time), 'FOOD','응애2',2),
-                               (3, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30, current_time), 'FOOD','응애3',1);
+-- Insert images into IMAGE_TB
+INSERT INTO IMAGE_TB
+VALUES
+    (1, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 1),
+    (2, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 1),
+    (3, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 1);
 
-insert into PRODUCT_TB values (1,TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time), '상품설명', '상품이름',1000,2,20,false,1),
-                              (2,TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time), '상품설명2', '상품이름2',2000,1,10,false,2),
-                              (3,TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time), '상품설명3', '상품이름3',3000,1,30,false,3),
-                              (4,TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time), '상품설명3', '상품이름3',4000,1,50,false,1);
-
-insert into IMAGE_TB values(1, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time),1),
-                           (2, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time),1),
-                           (3, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time),1);
-
-insert into TRADE_TB values(1, TIMESTAMPADD(MINUTE, -30, current_time), TIMESTAMPADD(MINUTE, 30,current_time),0,20,1,1);
+-- Insert trades into TRADE_TB
+INSERT INTO TRADE_TB
+VALUES
+    (1, TIMESTAMPADD(MINUTE, -30, CURRENT_TIME), TIMESTAMPADD(MINUTE, 30, CURRENT_TIME), 0, 20, 1, 1);

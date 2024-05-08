@@ -42,9 +42,6 @@ public class S3Repository {
     }
 
     public String get(Long imageId) {
-        if(imageId == null) {
-            return Optional.empty();
-        }
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(imageId + "_")
