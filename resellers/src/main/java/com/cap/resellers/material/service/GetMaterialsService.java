@@ -22,7 +22,7 @@ public class GetMaterialsService {
         return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
                         .map(material -> {
-                            Optional<String> preSignedUrl = getImageService.execute(getImageId(material));
+                            String preSignedUrl = getImageService.execute(getImageId(material));
                             return GetMaterialsProductDto.of(preSignedUrl, material, totalPrice(material));
                         })
                         .collect(Collectors.toList())

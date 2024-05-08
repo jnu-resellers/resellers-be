@@ -41,7 +41,7 @@ public class S3Repository {
         return CONTENT_TYPE_PREFIX + ext;
     }
 
-    public Optional<String> get(Long imageId) {
+    public String get(Long imageId) {
         if(imageId == null) {
             return Optional.empty();
         }
@@ -53,6 +53,6 @@ public class S3Repository {
                 .signatureDuration(Duration.ofMinutes(10))
                 .getObjectRequest(getObjectRequest)
                 .build();
-        return Optional.of(s3Presigner.presignGetObject(presignRequest).url().toString());
+        return s3Presigner.presignGetObject(presignRequest).url().toString();
     }
 }

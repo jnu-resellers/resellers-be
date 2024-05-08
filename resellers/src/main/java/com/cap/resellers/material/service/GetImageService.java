@@ -13,7 +13,7 @@ public class GetImageService {
     private final S3Repository s3Repository;
 
     @Transactional(readOnly = true)
-    public Optional<String> execute(Long imageId) {
+    public String execute(Long imageId) {
         return s3Repository.get(imageId);
     }
 }
