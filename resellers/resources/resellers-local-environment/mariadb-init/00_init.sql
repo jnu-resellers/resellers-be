@@ -8,5 +8,4 @@ GRANT ALL PRIVILEGES ON *.* TO
 GRANT ALL PRIVILEGES ON *.* TO
     'resellers-local'@'%';
 
-CREATE
-DATABASE resellers DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE resellers DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
