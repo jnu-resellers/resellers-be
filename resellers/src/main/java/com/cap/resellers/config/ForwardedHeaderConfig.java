@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @Configuration
-public class ForwardHeaderConfig {
+public class ForwardedHeaderConfig {
 
     @Bean
     ForwardedHeaderFilter forwardedHeaderFilter() {
