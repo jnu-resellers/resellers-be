@@ -3,6 +3,8 @@ name: testAndDeploy
 on:
   push:
     branches: [ "develop" ]
+    paths:
+      - 'resellers/**'
 
 jobs:
   build:
