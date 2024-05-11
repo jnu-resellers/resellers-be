@@ -6,6 +6,10 @@ on:
     paths:
       - 'resellers/**'
 
+defaults:
+  run:
+    working-directory: ./resellers
+
 jobs:
   build:
 
