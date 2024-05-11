@@ -3,12 +3,6 @@ name: testAndDeploy
 on:
   push:
     branches: [ "develop" ]
-    paths:
-      - 'resellers/**'
-
-defaults:
-  run:
-    working-directory: ./resellers
 
 jobs:
   build:
