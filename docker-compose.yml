@@ -20,11 +20,8 @@ services:
       - 8080:8080
     depends_on:
       - resellers-mariadb
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mariadb://resellers-mariadb:3306/resellers?serverTimezone=Asia/Seoul
-      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
-      - CLOUD_AWS_ACCESS_KEY=${CLOUD_AWS_ACCESS_KEY}
-      - CLOUD_AWS_SECRET_KEY=${CLOUD_AWS_SECRET_KEY}
+    env_file:
+      - .env
     networks:
       - resellers-network
     restart:
