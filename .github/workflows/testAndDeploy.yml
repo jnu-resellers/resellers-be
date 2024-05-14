@@ -47,8 +47,17 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ./resources/resellers-local-environment/mariadb-init
-          target: /home/ubuntu/docker
+          source: ./resources/resellers-local-environment/mariadb-init/01_schema.sql
+          target: /home/ubuntu/docker/resources/resellers-local-environment/mariadb-init
+
+      - name: Send resources-local-environment
+        uses: appleboy/scp-action@
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: ./resources/resellers-local-environment/mariadb-init/02_data.sql
+          target: /home/ubuntu/docker/resources/resellers-local-environment/mariadb-init
 
       - name: Create .env file
         run: |
