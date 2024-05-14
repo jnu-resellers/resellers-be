@@ -58,16 +58,14 @@ jobs:
       - name: docker Hub Push
         run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/gaebaljip-dv:latest
 
-  deploy:
-
-    needs: build
-    uses: appleboy/ssh-action@v1.0.3
-    with:
-      host: ${{ secrets.SSH_HOST }}
-      username: ${{ secrets.SSH_USERNAME }}
-      key: ${{ secrets.SSH_KEY }}
-      script: |
-        sudo docker-compose -f /home/ubuntu/docker-compose.yml down
-        sudo docker pull ${{ secrets.DOCKER_HUB_USER_NAME }}/resellers-dev:latest
-        sudo docker-compose -f /home/ubuntu/docker-compose.yml up --build --abort-on-container-exit
-        sudo docker image prune -a -f
+      - name: SSH Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo docker-compose -f /home/ubuntu/docker-compose.yml down
+            sudo docker pull ${{ secrets.DOCKER_HUB_USER_NAME }}/resellers-dev:latest
+            sudo docker-compose -f /home/ubuntu/docker-compose.yml up --build --abort-on-container-exit
+            sudo docker image prune -a -f
