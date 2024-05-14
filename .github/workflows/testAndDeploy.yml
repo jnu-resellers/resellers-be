@@ -56,7 +56,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: docker Hub Push
-        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/gaebaljip-dv:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/resellers-dev:latest
 
       - name: SSH Deploy
         uses: appleboy/ssh-action@v1.0.3
