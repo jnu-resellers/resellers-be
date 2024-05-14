@@ -7,6 +7,7 @@ services:
       - "3306"
     volumes:
       - ./resources/resellers-local-environment/mariadb-init:/docker-entrypoint-initdb.d
+    command: [ "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--lower_case_table_names=1", "--max_connections=2048", "--wait_timeout=3600" ]
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_ROOT_HOST=%

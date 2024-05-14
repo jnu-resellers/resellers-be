@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ./resources/resellers-local-environment
+          source: ./resources/resellers-local-environment/mariadb-init
           target: /home/ubuntu/docker
 
       - name: Create .env file
