@@ -34,6 +34,7 @@ public class Member extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_ACCOUNT_NUMBER")
     private String accountNumber;
 
+
     @Column(name = ENTITY_PREFIX + "_CONTACT", nullable = false)
     private String contact;
 

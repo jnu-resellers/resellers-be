@@ -57,7 +57,7 @@ public class CreateTradeService {
                 .member(buyer)
                 .product(product)
                 .confirm(false)
-                .quantity(product.getQuantity())
+                .quantity(1)
                 .build());
     }
 
