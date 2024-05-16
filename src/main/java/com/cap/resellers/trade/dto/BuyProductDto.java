@@ -9,7 +9,7 @@ public record BuyProductDto(String productName, String defect, String descriptio
     public static BuyProductDto of(Material material, Product product) {
         return BuyProductDto.builder()
                 .productName(product.getName())
-                .defect(material.getDefect())
+                .defect(product.getDefect())
                 .description(product.getDescription())
                 .build();
     }
