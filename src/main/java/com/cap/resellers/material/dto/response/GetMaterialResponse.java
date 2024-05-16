@@ -5,12 +5,11 @@ import lombok.Builder;
 
 import java.util.List;
 @Builder
-public record GetMaterialResponse(String title, String writer, List<GetMaterialProductDto> products) {
-    public static GetMaterialResponse of(String title, String writer, List<GetMaterialProductDto> products) {
+public record GetMaterialResponse(String writer, GetMaterialProductDto product) {
+    public static GetMaterialResponse of(String writer, GetMaterialProductDto product) {
         return GetMaterialResponse.builder()
-                .title(title)
                 .writer(writer)
-                .products(products)
+                .product(product)
                 .build();
     }
 }
