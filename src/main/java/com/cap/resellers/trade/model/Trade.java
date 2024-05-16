@@ -37,4 +37,12 @@ public class Trade extends BaseEntity {
     @JoinColumn(name = "PRODUCT_FK")
     private Product product;
 
+    public static Trade createTrade(Member member, Product product, Integer quantity) {
+        return Trade.builder()
+                .member(member)
+                .product(product)
+                .quantity(quantity)
+                .confirm(false)
+                .build();
+    }
 }

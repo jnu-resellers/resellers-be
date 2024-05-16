@@ -5,11 +5,11 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record CreateTradeResponse(List<BuyProductDto> buyProducts, SellerDto seller, Integer totalPrice) {
-    public static CreateTradeResponse of(List<BuyProductDto> buyProducts, SellerDto seller, Integer totalPrice) {
+public record CreateTradeResponse(BuyProductDto buyProducts, SellerDto sellerInfo, Integer totalPrice) {
+    public static CreateTradeResponse of(BuyProductDto buyProducts, SellerDto sellerInfo, Integer totalPrice) {
         return CreateTradeResponse.builder()
                 .buyProducts(buyProducts)
-                .seller(seller)
+                .sellerInfo(sellerInfo)
                 .totalPrice(totalPrice)
                 .build();
     }
