@@ -35,8 +35,6 @@ public class Material extends BaseEntity{
 
     @Column(name = ENTITY_PREFIX + "_CONTACT")
     private String contact;
-    @Column(name = ENTITY_PREFIX + "_DEFECT")
-    private String defect;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_FK")
