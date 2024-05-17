@@ -24,7 +24,7 @@ public class GetTradePriceService {
         LocalDate currentDate = LocalDate.now();
         List<TradePriceDto> results = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) { // 한달간 주별로 조회
+        for (int i = 0; i < 12; i++) { // 세달간 주별로 조회
             LocalDate endDate = currentDate.minusWeeks(i);
             LocalDate startDate = endDate.minusWeeks(1);
             List<Trade> trades = tradeRepository.findByItemTypeAndProductCreatedDateBetween(type, startDate, endDate);
@@ -33,6 +33,9 @@ public class GetTradePriceService {
 
             if (dto.isEmpty() && !results.isEmpty()) {
                 dto = Optional.of(new TradePriceDto(startDate, results.get(results.size() - 1).lowest(), results.get(results.size() - 1).average()));
+            } else if (dto.isEmpty()) {
+                // 첫 주에 거래 데이터가 없는 경우, 기본값 0으로 설정
+                dto = Optional.of(new TradePriceDto(startDate, 0L, 0L));
             }
 
             dto.ifPresent(results::add);
