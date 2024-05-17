@@ -1,4 +1,4 @@
-package com.cap.resellers.trade.dto;
+package com.cap.resellers.trade.dto.reqeust;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

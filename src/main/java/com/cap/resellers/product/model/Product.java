@@ -1,15 +1,11 @@
 package com.cap.resellers.product.model;
 
 import com.cap.resellers.common.BaseEntity;
-import com.cap.resellers.material.model.Material;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.cap.resellers.member.model.Member;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +37,9 @@ public class Product extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_DEFECT", nullable = false)
     private String defect;
 
-    @Column(name = ENTITY_PREFIX + "_SELLER", nullable = false)
-    private Long seller;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_FK")
+    private Member seller;
 
     @Column(name = ENTITY_PREFIX + "_IS_SOLD", nullable = false)
     @Builder.Default
@@ -52,7 +49,7 @@ public class Product extends BaseEntity {
     @JsonManagedReference
     private List<Image> images = new ArrayList<>();
 
-    public static Product createProduct(Long seller, String name, Integer price, String description, List<Image> images, String defect) {
+    public static Product createProduct(Member seller, String name, Integer price, String description, List<Image> images, String defect) {
         Product product1 = Product.builder()
                 .seller(seller)
                 .name(name)

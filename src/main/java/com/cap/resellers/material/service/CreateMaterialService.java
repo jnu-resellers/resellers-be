@@ -39,7 +39,7 @@ public class CreateMaterialService {
             images.add(image);
         });
 
-        Product product = Product.createProduct(memberId, request.productName(), request.price(), request.description(), images, request.defect());
+        Product product = Product.createProduct(member, request.productName(), request.price(), request.description(), images, request.defect());
         productRepository.save(product);
 
         Material material = Material.createMaterial(member, ItemType.fromValue(request.itemType()), product, request.contact());

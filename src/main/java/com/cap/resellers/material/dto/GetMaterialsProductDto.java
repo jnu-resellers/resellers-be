@@ -4,7 +4,7 @@ import com.cap.resellers.material.model.Material;
 import lombok.Builder;
 
 @Builder
-public record GetMaterialsProductDto(String preSignedUrl, Long id, String productName, String itemType, Integer totalPrice) {
+public record GetMaterialsProductDto(String preSignedUrl, Long id, String productName, String itemType, Integer totalPrice, boolean isSold) {
     public static GetMaterialsProductDto of(String preSignedUrl, Material material, Integer totalPrice) {
         return GetMaterialsProductDto.builder()
                 .preSignedUrl(preSignedUrl)
@@ -12,6 +12,7 @@ public record GetMaterialsProductDto(String preSignedUrl, Long id, String produc
                 .productName(material.getProduct().getName())
                 .itemType(material.getItemType().getValue())
                 .totalPrice(totalPrice)
+                .isSold(material.getProduct().getIsSold())
                 .build();
     }
 }

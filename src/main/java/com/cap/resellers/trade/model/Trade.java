@@ -1,6 +1,7 @@
 package com.cap.resellers.trade.model;
 
 import com.cap.resellers.common.BaseEntity;
+import com.cap.resellers.material.model.ItemType;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
@@ -29,20 +30,25 @@ public class Trade extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_QUANTITY", nullable = false)
     private Integer quantity;
 
+    @Column(name = ENTITY_PREFIX + "_ITEM_TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ItemType itemType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_FK")
-    private Member member;
+    private Member buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_FK")
     private Product product;
 
-    public static Trade createTrade(Member member, Product product, Integer quantity) {
+    public static Trade createTrade(Member buyer, Product product, Integer quantity, ItemType itemType) {
         return Trade.builder()
-                .member(member)
+                .buyer(buyer)
                 .product(product)
                 .quantity(quantity)
                 .confirm(false)
+                .itemType(itemType)
                 .build();
     }
 }

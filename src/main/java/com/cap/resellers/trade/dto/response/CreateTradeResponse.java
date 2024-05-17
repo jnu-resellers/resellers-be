@@ -1,8 +1,8 @@
-package com.cap.resellers.trade.dto;
+package com.cap.resellers.trade.dto.response;
 
+import com.cap.resellers.trade.dto.BuyProductDto;
+import com.cap.resellers.trade.dto.SellerDto;
 import lombok.Builder;
-
-import java.util.List;
 
 @Builder
 public record CreateTradeResponse(BuyProductDto buyProducts, SellerDto sellerInfo, Integer totalPrice) {

@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,11 +23,11 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false, name = "CREATED_DATE")
-    private Timestamp createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false, name = "UPDATED_DATE")
-    private Timestamp updatedDate;
+    private LocalDateTime updatedDate;
 
 
 }
