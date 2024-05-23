@@ -21,6 +21,7 @@ public class GetMaterialsService {
     public GetMaterialsResponse execute() {
         return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
+                        .filter(material -> material.getAuctions().isEmpty())
                         .map(material -> {
                             String preSignedUrl = getImageService.execute(getImageId(material));
                             return GetMaterialsProductDto.of(preSignedUrl, material, totalPrice(material));

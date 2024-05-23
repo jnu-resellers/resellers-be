@@ -1,5 +1,6 @@
 package com.cap.resellers.material.model;
 
+import com.cap.resellers.auction.model.Auction;
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.product.model.Product;
@@ -7,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,6 +43,9 @@ public class Material extends BaseEntity{
     @JoinColumn(name = "PRODUCT_FK")
     private Product product;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Auction> auctions = new ArrayList<>();
+
     public static Material createMaterial(Member member, ItemType itemType, Product product, String contact) {
         return Material.builder()
                 .product(product)
@@ -48,6 +54,4 @@ public class Material extends BaseEntity{
                 .contact(contact)
                 .build();
     }
-
-
 }
