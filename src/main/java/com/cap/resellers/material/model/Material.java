@@ -43,8 +43,8 @@ public class Material extends BaseEntity{
     @JoinColumn(name = "PRODUCT_FK")
     private Product product;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Auction> auctions = new ArrayList<>();
+    @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
+    private Auction auction;
 
     public static Material createMaterial(Member member, ItemType itemType, Product product, String contact) {
         return Material.builder()

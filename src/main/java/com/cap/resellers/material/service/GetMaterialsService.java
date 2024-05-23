@@ -5,12 +5,8 @@ import com.cap.resellers.material.dto.response.GetMaterialsResponse;
 import com.cap.resellers.material.model.Material;
 import com.cap.resellers.material.repository.MaterialRepository;
 import com.cap.resellers.product.model.Image;
-import com.cap.resellers.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +17,7 @@ public class GetMaterialsService {
     public GetMaterialsResponse execute() {
         return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
-                        .filter(material -> material.getAuctions().isEmpty())
+                        .filter(material -> material.getAuction() == null)
                         .map(material -> {
                             String preSignedUrl = getImageService.execute(getImageId(material));
                             return GetMaterialsProductDto.of(preSignedUrl, material, totalPrice(material));
