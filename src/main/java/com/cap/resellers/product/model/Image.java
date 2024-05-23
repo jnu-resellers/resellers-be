@@ -22,13 +22,19 @@ public class Image extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_PK", nullable = false)
     private Long id;
 
+    @Column(name = ENTITY_PREFIX + "_FILE_NAME", nullable = false)
+    private String fileName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_FK")
     @JsonBackReference
     private Product product;
 
-    public static Image createImage() {
+
+
+    public static Image createImage(String fileName) {
         return Image.builder()
+                .fileName(fileName)
                 .build();
     }
 

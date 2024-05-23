@@ -1,7 +1,6 @@
 package com.cap.resellers.material.service;
 
 import com.cap.resellers.material.dto.ImageDTO;
-import com.cap.resellers.material.dto.ImageDTO;
 import com.cap.resellers.material.dto.request.CreateMaterialRequest;
 import com.cap.resellers.material.model.ItemType;
 import com.cap.resellers.material.model.Material;
@@ -30,22 +29,42 @@ public class CreateMaterialService {
 
     @Transactional
     public List<ImageDTO> execute(CreateMaterialRequest request, Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NullPointerException::new);
-
-        List<Image> images = new ArrayList<>();
-        request.fileNames().forEach(fileName -> {
-            Image image = Image.createImage();
-            imageRepository.save(image);
-            images.add(image);
-        });
-
-        Product product = Product.createProduct(member, request.productName(), request.price(), request.description(), images, request.defect());
-        productRepository.save(product);
-
-        Material material = Material.createMaterial(member, ItemType.fromValue(request.itemType()), product, request.contact());
-        materialRepository.save(material);
+        Member member = getMember(memberId);
+        List<Image> images = createImages(request.fileNames());
+        Product product = createProduct(member, request.productName(), request.price(), request.description(), images, request.defect());
+        createMaterial(member, request.itemType(), product, request.contact());
 
         return ImageDTO.of(images, request.fileNames());
     }
 
+    @Transactional(readOnly = true)
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(NullPointerException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Image> createImages(List<String> fileNames) {
+        List<Image> images = new ArrayList<>();
+        fileNames.forEach(fileName -> {
+            Image image = Image.createImage(fileName);
+            imageRepository.save(image);
+            images.add(image);
+        });
+        return images;
+    }
+
+    @Transactional(readOnly = true)
+    public Product createProduct(Member member, String productName, Integer price, String description, List<Image> images, String defect) {
+        Product product = Product.createProduct(member, productName, price, description, images, defect);
+        productRepository.save(product);
+        return product;
+    }
+
+    @Transactional(readOnly = true)
+    public Material createMaterial(Member member, String itemType, Product product, String contact) {
+        Material material = Material.createMaterial(member, ItemType.fromValue(itemType), product, contact);
+        materialRepository.save(material);
+        return material;
+    }
 }
+

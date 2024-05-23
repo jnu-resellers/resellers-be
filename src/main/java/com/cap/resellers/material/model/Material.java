@@ -41,13 +41,12 @@ public class Material extends BaseEntity{
     private Product product;
 
     public static Material createMaterial(Member member, ItemType itemType, Product product, String contact) {
-        Material material = Material.builder()
+        return Material.builder()
                 .product(product)
                 .member(member)
                 .itemType(itemType)
                 .contact(contact)
                 .build();
-        return material;
     }
 
 
