@@ -53,4 +53,12 @@ public class Auction {
                 .isSold(isSold)
                 .build();
     }
+
+    public void bid(Integer price) {
+        if(nowPrice > price) {
+            throw new IllegalArgumentException("현재 가격보다 높은 가격을 입력해주세요.");
+        }
+        nowPrice = price;
+        bidCount++;
+    }
 }

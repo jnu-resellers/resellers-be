@@ -48,6 +48,11 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected ApiResponse<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ApiResponseGenerator.fail(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     /** 나머지 예외 발생 */
     @ExceptionHandler(Exception.class)
     protected ApiResponse<?> handleException(Exception e) {

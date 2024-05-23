@@ -1,15 +1,15 @@
 package com.cap.resellers.auction.controller;
 
+import com.cap.resellers.auction.dto.request.BidAuctionRequest;
 import com.cap.resellers.auction.dto.request.CreateAuctionRequest;
 import com.cap.resellers.auction.dto.response.GetAuctionResponse;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
+import com.cap.resellers.auction.service.BidAuctionService;
 import com.cap.resellers.auction.service.CreateAuctionService;
 import com.cap.resellers.auction.service.GetAuctionService;
 import com.cap.resellers.auction.service.GetAuctionsService;
 import com.cap.resellers.common.ApiResponse;
 import com.cap.resellers.common.ApiResponseGenerator;
-import com.cap.resellers.material.service.CreateMaterialService;
-import com.cap.resellers.material.service.UploadImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,7 @@ public class AuctionController {
     private final CreateAuctionService createAuctionService;
     private final GetAuctionService getAuctionService;
     private final GetAuctionsService getAuctionsService;
+    private final BidAuctionService bidAuctionService;
 
 
     @PostMapping("/auction")
@@ -46,5 +47,12 @@ public class AuctionController {
     public ApiResponse<ApiResponse.CustomBody<Void>> getAuctions() {
         GetAuctionsResponse getAuctionsResponse = getAuctionsService.execute();
         return ApiResponseGenerator.success(getAuctionsResponse,HttpStatus.OK);
+    }
+
+    @PatchMapping("/auction")
+    @Operation(summary = "경매 가격 입찰", description = "경매 입찰하여 가격 수정합니다.")
+    public ApiResponse<ApiResponse.CustomBody<Void>> bidAuction(@RequestBody BidAuctionRequest request) {
+        Integer nowPrice = bidAuctionService.execute(request);
+        return ApiResponseGenerator.success(nowPrice,HttpStatus.OK);
     }
 }
