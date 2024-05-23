@@ -23,6 +23,9 @@ public class Auction {
     @Column(name = ENTITY_PREFIX + "_DEADLINE", nullable = false)
     private LocalDateTime deadline;
 
+    @Column(name = ENTITY_PREFIX + "_START_AT", nullable = false)
+    private LocalDateTime startAt;
+
     @Column(name = ENTITY_PREFIX + "_PRICE_UNIT", nullable = false)
     private Integer priceUnit;
 
@@ -33,9 +36,17 @@ public class Auction {
     @JoinColumn(name = "MATERIAL_FK")
     private Material material;
 
+    @Column(name = ENTITY_PREFIX + "_BID_COUNT", nullable = false)
+    private Integer bidCount;
+
+    @Column(name = ENTITY_PREFIX + "_NOW_PRICE", nullable = false)
+    private Integer nowPrice;
 
     public static Auction createAuction(LocalDateTime deadline, Integer priceUnit, Material material, Boolean isSold) {
         return Auction.builder()
+                .nowPrice(material.getProduct().getPrice())
+                .bidCount(0)
+                .startAt(LocalDateTime.now())
                 .deadline(deadline)
                 .priceUnit(priceUnit)
                 .material(material)
