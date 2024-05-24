@@ -12,8 +12,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://ocalhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS")
-                .allowedHeaders("Authorization", "Content-Type")
-                .allowCredentials(true)
                 .maxAge(3600);
     }
 }
