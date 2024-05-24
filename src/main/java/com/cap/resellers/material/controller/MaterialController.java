@@ -29,16 +29,14 @@ import java.util.Map;
 public class MaterialController {
 
     private final CreateMaterialService createMaterialService;
-    private final UploadImageService uploadImageService;
     private final GetMaterialsService getMaterialsService;
     private final GetMaterialService getMaterialService;
     @Tag(name = "기자재(게시글)", description = "Material API")
     @PostMapping("/board/material")
-    public ApiResponse<ApiResponse.CustomBody<CreateMaterialResponse>> createMaterial(@RequestBody CreateMaterialRequest request) {
+    public ApiResponse<ApiResponse.CustomBody<Void>> createMaterial(@RequestBody CreateMaterialRequest request) {
         Long memberId = 1L;
-        List<ImageDTO> imageDTOS = createMaterialService.execute(request, memberId);
-        Map<Long, String> imageUrlMap = uploadImageService.execute(imageDTOS);
-        return ApiResponseGenerator.success(CreateMaterialResponse.of(imageUrlMap),HttpStatus.CREATED);
+        createMaterialService.execute(request, memberId);
+        return ApiResponseGenerator.success(HttpStatus.CREATED);
     }
 
     @Operation(summary = "기자재 목록 조회", description = "기자재 목록을 조회합니다.")
