@@ -51,4 +51,8 @@ public class Trade extends BaseEntity {
                 .itemType(itemType)
                 .build();
     }
+
+    public void completeTrade() {
+        this.confirm = true;
+    }
 }
