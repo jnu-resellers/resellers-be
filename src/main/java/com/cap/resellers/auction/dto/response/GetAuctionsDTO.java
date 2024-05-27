@@ -3,10 +3,9 @@ package com.cap.resellers.auction.dto.response;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record GetAuctionsDTO(
-        List<String> imageNames,
+        String imageName,
         String itemType,
         String productName,
         Integer bidCount,

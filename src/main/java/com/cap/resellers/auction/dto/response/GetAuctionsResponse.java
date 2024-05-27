@@ -9,7 +9,7 @@ public record GetAuctionsResponse(
     public static GetAuctionsResponse of(List<Auction> auctions) {
         return new GetAuctionsResponse(auctions.stream()
                 .map(auction -> GetAuctionsDTO.builder()
-                        .imageNames(auction.getMaterial().getProduct().getImages().stream().map(image -> image.getFileName()).toList())
+                        .imageName(auction.getMaterial().getProduct().getImages().stream().findFirst().get().getFileName())
                         .itemType(auction.getMaterial().getItemType().getValue())
                         .productName(auction.getMaterial().getProduct().getName())
                         .bidCount(auction.getBidCount())
