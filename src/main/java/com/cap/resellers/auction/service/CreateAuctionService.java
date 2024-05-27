@@ -14,6 +14,7 @@ import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CreateAuctionService {
     private final CreateMaterialService createMaterialService;
     private final AuctionRepository auctionRepository;
     private final AuctionMemberRepository auctionMemberRepository;
-
+@Transactional
     public List<ImageDTO> execute(CreateAuctionRequest request, Long memberId) {
         Member member = createMaterialService.getMember(memberId);
         List<Image> images = createMaterialService.createImages(request.fileNames());
