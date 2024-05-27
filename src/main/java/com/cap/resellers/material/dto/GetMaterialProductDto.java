@@ -6,10 +6,10 @@ import lombok.Builder;
 import java.util.List;
 import java.util.Optional;
 @Builder
-public record GetMaterialProductDto(List<String> preSignedUrl, Long id, String productName, Integer price, String description, String defect, boolean isSold) {
-    public static GetMaterialProductDto of(List<String> preSignedUrl, Product product) {
+public record GetMaterialProductDto(List<String> fileNames, Long id, String productName, Integer price, String description, String defect, boolean isSold) {
+    public static GetMaterialProductDto of(List<String> fileNames, Product product) {
         return GetMaterialProductDto.builder()
-                .preSignedUrl(preSignedUrl)
+                .fileNames(fileNames)
                 .id(product.getId())
                 .productName(product.getName())
                 .price(product.getPrice())

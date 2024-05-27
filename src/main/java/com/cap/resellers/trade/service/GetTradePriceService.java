@@ -27,7 +27,8 @@ public class GetTradePriceService {
         for (int i = 0; i < 12; i++) { // 세달간 주별로 조회
             LocalDate endDate = currentDate.minusWeeks(i);
             LocalDate startDate = endDate.minusWeeks(1);
-            List<Trade> trades = tradeRepository.findByItemTypeAndProductCreatedDateBetween(type, startDate, endDate);
+            List<Trade> trades = tradeRepository.findByItemTypeAndProductCreatedDateBetween(type, startDate, endDate)
+                    .stream().filter(trade -> trade.getConfirm().equals(true)).toList();
             Optional<TradePriceDto> dto = calculatePriceStats(trades,endDate);
 
 
@@ -52,12 +53,12 @@ public class GetTradePriceService {
         long lowest = trades.stream()
                 .mapToLong(trade -> trade.getProduct().getPrice())
                 .min()
-                .orElseThrow();
+                .orElse(0);
 
         double average = trades.stream()
                 .mapToLong(trade -> trade.getProduct().getPrice())
                 .average()
-                .orElseThrow();
+                .orElse(0);
 
         return Optional.of(new TradePriceDto(endDate, lowest, (long) average));
     }

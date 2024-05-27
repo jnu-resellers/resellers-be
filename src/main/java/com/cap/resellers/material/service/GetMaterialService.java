@@ -4,6 +4,7 @@ import com.cap.resellers.material.dto.GetMaterialProductDto;
 import com.cap.resellers.material.dto.response.GetMaterialResponse;
 import com.cap.resellers.material.model.Material;
 import com.cap.resellers.material.repository.MaterialRepository;
+import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,11 @@ public class GetMaterialService {
 
 
     private GetMaterialProductDto getMaterialsProductDtos(Product product) {
-        List<String> preSignedUrls = product.getImages().stream()
-                .map(image -> getImageService.execute(image.getId()))
+        List<String> fileNames = product.getImages().stream()
+                .map(Image::getFileName)
                 .filter(Objects::nonNull)
                 .toList();
-        return GetMaterialProductDto.of(preSignedUrls, product);
+        return GetMaterialProductDto.of(fileNames, product);
     }
 
 }

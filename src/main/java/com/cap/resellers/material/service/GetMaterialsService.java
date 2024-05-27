@@ -19,8 +19,8 @@ public class GetMaterialsService {
                 materialRepository.findAll().stream()
                         .filter(material -> material.getAuction() == null)
                         .map(material -> {
-                            String preSignedUrl = getImageService.execute(getImageId(material));
-                            return GetMaterialsProductDto.of(preSignedUrl, material, totalPrice(material));
+                            String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
+                            return GetMaterialsProductDto.of(filename, material, totalPrice(material));
                         })
                         .toList()
         );
