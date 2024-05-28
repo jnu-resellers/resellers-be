@@ -12,6 +12,6 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
     List<Trade> findByItemType(ItemType itemType);
-    @Query("SELECT t FROM Trade t LEFT JOIN FETCH t.product p WHERE t.itemType = :itemType AND p.createdDate BETWEEN :startDate AND :endDate AND t.confirm = true")
+    @Query("SELECT t FROM Trade t JOIN FETCH t.product p WHERE t.itemType = :itemType AND p.createdDate BETWEEN :startDate AND :endDate AND t.confirm = true")
     List<Trade> findByItemTypeAndProductCreatedDateBetween(ItemType itemType, LocalDateTime startDate, LocalDateTime endDate);
 }
