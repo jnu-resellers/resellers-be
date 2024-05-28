@@ -33,10 +33,10 @@ public class TradeController {
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
-    @GetMapping("/trade")
+    @GetMapping("/trade/{tradeId}")
     @Operation(summary = "기자재 거래 정보 조회", description = "기자재 거래 정보 조회")
-    public ApiResponse<ApiResponse.CustomBody<GetTradeResponse>> getTrade(@RequestBody GetTradeRequest request) {
-        GetTradeResponse response = getTradeService.execute(request.tradeId());
+    public ApiResponse<ApiResponse.CustomBody<GetTradeResponse>> getTrade(@PathVariable Long tradeId) {
+        GetTradeResponse response = getTradeService.execute(tradeId);
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
