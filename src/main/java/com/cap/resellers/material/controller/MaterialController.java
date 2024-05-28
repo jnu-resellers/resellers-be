@@ -41,7 +41,7 @@ public class MaterialController {
 
     @Operation(summary = "기자재 목록 조회", description = "기자재 목록을 조회합니다.")
     @GetMapping("/board/materials")
-    public ApiResponse<ApiResponse.CustomBody<GetMaterialsResponse>> getMaterials(@RequestParam String sortType) {
+    public ApiResponse<ApiResponse.CustomBody<GetMaterialsResponse>> getMaterials(@RequestParam(required = false) String sortType) {
         GetMaterialsResponse response = getMaterialsService.execute(sortType);
         return ApiResponseGenerator.success(response,HttpStatus.OK);
     }

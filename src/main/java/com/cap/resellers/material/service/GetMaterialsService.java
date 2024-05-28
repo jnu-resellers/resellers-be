@@ -18,9 +18,22 @@ public class GetMaterialsService {
     private final MaterialRepository materialRepository;
     @Transactional(readOnly = true)
     public GetMaterialsResponse execute(String sortType) {
+        if(sortType == null) {
+            return GetMaterialsResponse.of(
+                    materialRepository.findAll().stream()
+                            .filter(material -> material.getAuction() == null)
+                            .sorted(Comparator.comparing(Material::getId).reversed())
+                            .map(material -> {
+                                String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
+                                return GetMaterialsProductDto.of(filename, material, totalPrice(material));
+                            })
+                            .toList()
+            );
+        }
         return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
-                        .filter(material -> material.getAuction() == null && material.getItemType().getValue().equals(sortType))
+                        .filter(material -> material.getAuction() == null)
+                        .filter(material -> material.getItemType().getValue().equals(sortType))
                         .sorted(Comparator.comparing(Material::getId).reversed())
                         .map(material -> {
                             String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();

@@ -22,6 +22,14 @@ public class GetAuctionsService {
 
     @Transactional(readOnly = true)
     public GetAuctionsResponse execute(String sortType) {
+        if(sortType == null) {
+            List<Auction> auctions = auctionRepository.findAll().stream()
+                    .filter(auction -> auction.getDeadline().isAfter(LocalDateTime.now()))
+                    .filter(auction -> !auction.getIsSold())
+                    .sorted((a1, a2) -> a2.getBidCount().compareTo(a1.getBidCount()))
+                    .toList();
+            return GetAuctionsResponse.of(auctions);
+        }
         List<Auction> auctions = auctionRepository.findAll().stream()
                 .filter(auction -> auction.getDeadline().isAfter(LocalDateTime.now()))
                 .filter(auction -> !auction.getIsSold())
