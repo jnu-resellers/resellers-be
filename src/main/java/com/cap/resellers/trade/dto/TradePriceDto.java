@@ -1,6 +1,9 @@
 package com.cap.resellers.trade.dto;
 
-import java.time.LocalDate;
 
-public record TradePriceDto(LocalDate date, Long lowest, Long average) {
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
+
+public record TradePriceDto(@JsonFormat(pattern = "yyyy-MM-dd") LocalDateTime date, Long lowest, Long average) {
 }
