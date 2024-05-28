@@ -1,6 +1,7 @@
 package com.cap.resellers.auction.dto.response;
 
 import com.cap.resellers.auction.model.Auction;
+import com.cap.resellers.product.model.Image;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
@@ -20,7 +21,8 @@ public record GetAuctionResponse(
         Integer nowPrice,
         String writer,
         String description,
-        String defect
+        String defect,
+        Integer priceUnit
 
 ) {
 
@@ -30,7 +32,7 @@ public record GetAuctionResponse(
 
     public static GetAuctionResponse of(Auction auction) {
         return GetAuctionResponse.builder()
-                .imageNames(auction.getMaterial().getProduct().getImages().stream().map(image -> image.getFileName()).toList())
+                .imageNames(auction.getMaterial().getProduct().getImages().stream().map(Image::getFileName).toList())
                 .itemType(auction.getMaterial().getItemType().getValue())
                 .productName(auction.getMaterial().getProduct().getName())
                 .bidCount(auction.getBidCount())
@@ -41,6 +43,7 @@ public record GetAuctionResponse(
                 .writer(auction.getMaterial().getMember().getName())
                 .description(auction.getMaterial().getProduct().getDescription())
                 .defect(auction.getMaterial().getProduct().getDefect())
+                .priceUnit(auction.getPriceUnit())
                 .build();
     }
 }
