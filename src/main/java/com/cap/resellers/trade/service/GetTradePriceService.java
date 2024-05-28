@@ -32,7 +32,7 @@ public class GetTradePriceService {
         List<TradePriceDto> results = new ArrayList<>();
 
         for (int i = 0; i < 12; i++) {
-            LocalDateTime endDateTime = currentDate.minusWeeks(12 - i);
+            LocalDateTime endDateTime = currentDate.minusWeeks(11 - i);
             LocalDateTime startDateTime = endDateTime.minusWeeks(1);
 
             List<Trade> weeklyTrades = trades.stream()
@@ -42,7 +42,7 @@ public class GetTradePriceService {
             Optional<TradePriceDto> dto = calculatePriceStats(weeklyTrades, endDateTime);
 
             if (dto.isEmpty() && !results.isEmpty()) {
-                dto = Optional.of(new TradePriceDto(startDateTime, results.get(results.size() - 1).lowest(), results.get(results.size() - 1).average()));
+                dto = Optional.of(new TradePriceDto(endDateTime, results.get(results.size() - 1).lowest(), results.get(results.size() - 1).average()));
             } else if (dto.isEmpty()) {
                 dto = Optional.of(new TradePriceDto(endDateTime, 0L, 0L));
             }
