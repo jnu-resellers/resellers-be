@@ -9,6 +9,7 @@ import com.cap.resellers.product.repository.ProductRepository;
 import com.cap.resellers.trade.dto.BuyProductDto;
 import com.cap.resellers.trade.dto.reqeust.CreateTradeRequest;
 import com.cap.resellers.trade.dto.response.CreateTradeResponse;
+import com.cap.resellers.trade.dto.response.GetTradeResponse;
 import com.cap.resellers.trade.dto.SellerDto;
 import com.cap.resellers.trade.model.Trade;
 import com.cap.resellers.trade.repository.TradeRepository;
@@ -32,12 +33,10 @@ public class CreateTradeService {
         Material material = materialRepository.findById(request.materialId()).orElseThrow(() -> new IllegalArgumentException("Material not found"));
 
         checkBuyOwnProduct(buyer, seller);
-        int totalPrice = product.getPrice() * request.quantity();
-        BuyProductDto buyProduct = BuyProductDto.of(material, product);
 
-        Trade trade = Trade.createTrade(buyer, product, request.quantity(), material.getItemType());
+        Trade trade = Trade.createTrade(buyer, material, request.quantity(), material.getItemType());
         tradeRepository.save(trade);
-        return CreateTradeResponse.of(buyProduct, SellerDto.from(material), totalPrice);
+        return CreateTradeResponse.from(request.materialId(), trade.getId());
     }
 
     private void checkBuyOwnProduct(Member buyer, Member seller) {

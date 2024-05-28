@@ -36,7 +36,7 @@ public class GetTradePriceService {
             LocalDateTime startDateTime = endDateTime.minusWeeks(1);
 
             List<Trade> weeklyTrades = trades.stream()
-                    .filter(trade -> !trade.getProduct().getCreatedDate().isBefore(startDateTime) && !trade.getProduct().getCreatedDate().isAfter(endDateTime))
+                    .filter(trade -> !trade.getMaterial().getProduct().getCreatedDate().isBefore(startDateTime) && !trade.getMaterial().getProduct().getCreatedDate().isAfter(endDateTime))
                     .toList();
 
             Optional<TradePriceDto> dto = calculatePriceStats(weeklyTrades, endDateTime);
@@ -59,12 +59,12 @@ public class GetTradePriceService {
         }
 
         long lowest = trades.stream()
-                .mapToLong(trade -> trade.getProduct().getPrice())
+                .mapToLong(trade -> trade.getMaterial().getProduct().getPrice())
                 .min()
                 .orElse(0);
 
         double average = trades.stream()
-                .mapToLong(trade -> trade.getProduct().getPrice())
+                .mapToLong(trade -> trade.getMaterial().getProduct().getPrice())
                 .average()
                 .orElse(0);
 

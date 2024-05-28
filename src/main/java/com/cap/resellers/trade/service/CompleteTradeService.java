@@ -16,7 +16,7 @@ public class CompleteTradeService {
         Trade trade = tradeRepository.findById(tradeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 거래가 존재하지 않습니다."));
         trade.completeTrade();
-        trade.getProduct().sold();
+        trade.getMaterial().getProduct().sold();
     }
 
 }

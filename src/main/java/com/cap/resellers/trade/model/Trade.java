@@ -2,6 +2,7 @@ package com.cap.resellers.trade.model;
 
 import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.material.model.ItemType;
+import com.cap.resellers.material.model.Material;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
@@ -38,14 +39,14 @@ public class Trade extends BaseEntity {
     @JoinColumn(name = "MEMBER_FK")
     private Member buyer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_FK")
-    private Product product;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MATERIAL_FK")
+    private Material material;
 
-    public static Trade createTrade(Member buyer, Product product, Integer quantity, ItemType itemType) {
+    public static Trade createTrade(Member buyer, Material material, Integer quantity, ItemType itemType) {
         return Trade.builder()
                 .buyer(buyer)
-                .product(product)
+                .material(material)
                 .quantity(quantity)
                 .confirm(false)
                 .itemType(itemType)

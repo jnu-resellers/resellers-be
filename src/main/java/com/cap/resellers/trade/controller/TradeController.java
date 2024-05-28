@@ -4,10 +4,13 @@ import com.cap.resellers.common.ApiResponse;
 import com.cap.resellers.common.ApiResponseGenerator;
 import com.cap.resellers.trade.dto.TradePriceDto;
 import com.cap.resellers.trade.dto.reqeust.CreateTradeRequest;
+import com.cap.resellers.trade.dto.reqeust.GetTradeRequest;
 import com.cap.resellers.trade.dto.response.CreateTradeResponse;
+import com.cap.resellers.trade.dto.response.GetTradeResponse;
 import com.cap.resellers.trade.service.CompleteTradeService;
 import com.cap.resellers.trade.service.CreateTradeService;
 import com.cap.resellers.trade.service.GetTradePriceService;
+import com.cap.resellers.trade.service.GetTradeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,10 +25,18 @@ public class TradeController {
     private final CreateTradeService createTradeService;
     private final GetTradePriceService getTradePriceService;
     private final CompleteTradeService completeTradeService;
+    private final GetTradeService getTradeService;
     @PostMapping("/trade")
     @Operation(summary = "기자재 거래", description = "기자재 거래가 되고 돈이 입금된 것을 확인하고 confirm(기본 false)을 true로 변경")
     public ApiResponse<ApiResponse.CustomBody<CreateTradeResponse>> createTrade(@RequestBody CreateTradeRequest request) {
         CreateTradeResponse response = createTradeService.execute(1L, request);
+        return ApiResponseGenerator.success(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/trade")
+    @Operation(summary = "기자재 거래 정보 조회", description = "기자재 거래 정보 조회")
+    public ApiResponse<ApiResponse.CustomBody<GetTradeResponse>> getTrade(@RequestBody GetTradeRequest request) {
+        GetTradeResponse response = getTradeService.execute(request.tradeId());
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
