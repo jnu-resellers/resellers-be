@@ -6,6 +6,7 @@ import com.cap.resellers.trade.model.Trade;
 import com.cap.resellers.trade.repository.TradeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class GetTradePriceService {
     private final TradeRepository tradeRepository;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
+    @Transactional(readOnly = true)
     public List<TradePriceDto> execute(String itemType) {
         ItemType type = ItemType.fromValue(itemType);
         LocalDate currentDate = LocalDate.now();

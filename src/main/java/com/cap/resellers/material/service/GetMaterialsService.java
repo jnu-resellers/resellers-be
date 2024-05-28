@@ -7,17 +7,21 @@ import com.cap.resellers.material.repository.MaterialRepository;
 import com.cap.resellers.product.model.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
 
 @Service
 @RequiredArgsConstructor
 public class GetMaterialsService {
     private final GetImageService getImageService;
     private final MaterialRepository materialRepository;
-
-    public GetMaterialsResponse execute() {
+    @Transactional(readOnly = true)
+    public GetMaterialsResponse execute(String sortType) {
         return GetMaterialsResponse.of(
                 materialRepository.findAll().stream()
-                        .filter(material -> material.getAuction() == null)
+                        .filter(material -> material.getAuction() == null && material.getItemType().getValue().equals(sortType))
+                        .sorted(Comparator.comparing(Material::getId).reversed())
                         .map(material -> {
                             String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
                             return GetMaterialsProductDto.of(filename, material, totalPrice(material));

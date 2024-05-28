@@ -8,6 +8,7 @@ import com.cap.resellers.product.model.Image;
 import com.cap.resellers.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class GetMaterialService {
     private final MaterialRepository materialRepository;
     private final GetImageService getImageService;
-
+    @Transactional(readOnly = true)
     public GetMaterialResponse execute(Long materialId) {
         Material material = materialRepository.findById(materialId).orElseThrow(() -> new IllegalArgumentException("Material not found"));
         GetMaterialProductDto dto = getMaterialsProductDtos(material.getProduct());
