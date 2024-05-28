@@ -40,7 +40,7 @@ public class TradeController {
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
-    @GetMapping("/trade/prcie")
+    @GetMapping("/trade/price")
     @Operation(summary = "기자재 거래 가격 조회", description = "기자재 거래 가격 조회")
     public ApiResponse<ApiResponse.CustomBody<List<TradePriceDto>>> getTradePrice(@RequestParam String itemType) {
         List<TradePriceDto> response = getTradePriceService.execute(itemType);
