@@ -4,7 +4,7 @@ public enum ItemType {
     REFRIGERATOR("냉장고/냉동고"),
     SHOW_CASE("쇼케이스"),
     FURNITURE("가구"),
-    GASRANGE("가스레인지"),
+    GASRANGE("가스레인지/인덕션"),
     PACKING_MACHINE("포장기계"),
     WASHING_MACHINE("세척기"),
     ICE_MAKER("제빙기"),
