@@ -22,7 +22,7 @@ public class GetMaterialService {
     public GetMaterialResponse execute(Long materialId) {
         Material material = materialRepository.findById(materialId).orElseThrow(() -> new IllegalArgumentException("Material not found"));
         GetMaterialProductDto dto = getMaterialsProductDtos(material.getProduct());
-        return GetMaterialResponse.of(material.getMember().getName(), dto, material.getContact(), materialId);
+        return GetMaterialResponse.of(material.getMember().getName(), dto, material.getContact(), materialId, material.getItemType());
     }
 
 
