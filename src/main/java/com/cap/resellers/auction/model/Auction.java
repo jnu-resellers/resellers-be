@@ -1,5 +1,6 @@
 package com.cap.resellers.auction.model;
 
+import com.cap.resellers.common.BaseEntity;
 import com.cap.resellers.material.model.Material;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = Auction.ENTITY_PREFIX + "_TB")
 @Builder()
-public class Auction {
+public class Auction extends BaseEntity {
     public static final String ENTITY_PREFIX = "AUCTION";
 
     @Id
@@ -41,6 +42,8 @@ public class Auction {
 
     @Column(name = ENTITY_PREFIX + "_NOW_PRICE", nullable = false)
     private Integer nowPrice;
+
+
 
     public static Auction createAuction(LocalDateTime deadline, Integer priceUnit, Material material, Boolean isSold) {
         return Auction.builder()
