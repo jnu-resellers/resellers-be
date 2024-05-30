@@ -36,7 +36,7 @@ public class GetTradePriceService {
             LocalDateTime startDateTime = endDateTime.minusWeeks(1);
 
             List<Trade> weeklyTrades = trades.stream()
-                    .filter(trade -> !trade.getMaterial().getProduct().getCreatedDate().isBefore(startDateTime) && !trade.getMaterial().getProduct().getCreatedDate().isAfter(endDateTime))
+                    .filter(trade -> !trade.getCreatedDate().isBefore(startDateTime) && !trade.getCreatedDate().isAfter(endDateTime))
                     .toList();
 
             Optional<TradePriceDto> dto = calculatePriceStats(weeklyTrades, endDateTime);
