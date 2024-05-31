@@ -12,7 +12,8 @@ public record CreateMaterialRequest(
         @Schema(defaultValue = "100000", description = "상품 가격") Integer price,
         @Schema(defaultValue = "어쩌구 저쩌구", description = "설명") String description,
         @Schema(defaultValue = "문이 잘 안열려요.", description = "가격") String defect,
-        @Schema(defaultValue = "010-0000-0000", description = "연락 수단") String contact
+        @Schema(defaultValue = "010-0000-0000", description = "연락 수단") String contact,
+        Long memberId
 )  {
     @Builder
     public CreateMaterialRequest {

@@ -28,8 +28,8 @@ public class CreateMaterialService {
     private final ImageRepository imageRepository;
 
     @Transactional
-    public List<ImageDTO> execute(CreateMaterialRequest request, Long memberId) {
-        Member member = getMember(memberId);
+    public List<ImageDTO> execute(CreateMaterialRequest request) {
+        Member member = getMember(request.memberId());
         List<Image> images = createImages(request.fileNames());
         Product product = createProduct(member, request.productName(), request.price(), request.description(), images, request.defect());
         createMaterial(member, request.itemType(), product, request.contact());

@@ -4,7 +4,8 @@ import lombok.Builder;
 
 public record BidAuctionRequest(
         Long auctionId,
-        Integer price
+        Integer price,
+        Long memberId
 ) {
 
     @Builder

@@ -16,6 +16,12 @@ public class BidAuctionService {
     @Transactional
     public Integer execute(BidAuctionRequest request) {
         Auction auction = auctionRepository.findById(request.auctionId()).orElseThrow(NullPointerException::new);
+
+        // Auction을 올린 사람과 입찰하는 사람이 같은지 확인
+        if(auction.getMaterial().getMember().getId().equals(request.memberId())){
+            throw new IllegalArgumentException("경매를 올린 사람은 입찰할 수 없습니다.");
+        };
+
         auction.bid(request.price());
         return auction.getNowPrice();
     }

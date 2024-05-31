@@ -34,8 +34,7 @@ public class MaterialController {
     @Tag(name = "기자재(게시글)", description = "Material API")
     @PostMapping("/board/material")
     public ApiResponse<ApiResponse.CustomBody<Void>> createMaterial(@RequestBody CreateMaterialRequest request) {
-        Long memberId = 1L;
-        createMaterialService.execute(request, memberId);
+        createMaterialService.execute(request);
         return ApiResponseGenerator.success(HttpStatus.CREATED);
     }
 

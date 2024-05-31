@@ -28,6 +28,12 @@ public class Member extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_NAME", nullable = false)
     private String name;
 
+    @Column(name = ENTITY_PREFIX + "_EMAIL", nullable = false)
+    private String email;
+
+    @Column(name = ENTITY_PREFIX + "_PASSWORD", nullable = false)
+    private String password;
+
     @Column(name = ENTITY_PREFIX + "_BANK_NAME")
     private String bankName;
 
@@ -41,4 +47,25 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<Material> materials = new ArrayList<>();
+
+    @Builder
+    public Member(String name, String email, String password, String bankName, String accountNumber, String contact) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.bankName = bankName;
+        this.accountNumber = accountNumber;
+        this.contact = contact;
+    }
+
+    public static Member createMember(String name, String email, String password, String bankName, String accountNumber, String contact){
+        return Member.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .bankName(bankName)
+                .accountNumber(accountNumber)
+                .contact(contact)
+                .build();
+    }
 }
