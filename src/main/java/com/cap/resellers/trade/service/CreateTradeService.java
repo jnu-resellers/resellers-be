@@ -41,7 +41,7 @@ public class CreateTradeService {
 
     private void checkBuyOwnProduct(Member buyer, Member seller) {
         if (buyer.getId().equals(seller.getId())) {
-            throw new IllegalArgumentException("Can't buy your own product");
+            throw new IllegalArgumentException("자신의 상품은 주문 신청 할 수 없습니다.");
         }
     }
 }
