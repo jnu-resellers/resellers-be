@@ -29,7 +29,7 @@ public class TradeController {
     @PostMapping("/trade")
     @Operation(summary = "기자재 거래", description = "기자재 거래가 되고 돈이 입금된 것을 확인하고 confirm(기본 false)을 true로 변경")
     public ApiResponse<ApiResponse.CustomBody<CreateTradeResponse>> createTrade(@RequestBody CreateTradeRequest request) {
-        CreateTradeResponse response = createTradeService.execute(1L, request);
+        CreateTradeResponse response = createTradeService.execute(request.memberId(), request);
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 

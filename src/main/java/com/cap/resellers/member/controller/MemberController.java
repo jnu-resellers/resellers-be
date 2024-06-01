@@ -3,6 +3,7 @@ package com.cap.resellers.member.controller;
 import com.cap.resellers.common.ApiResponse;
 import com.cap.resellers.common.ApiResponseGenerator;
 import com.cap.resellers.member.dto.CreateMemberRequest;
+import com.cap.resellers.member.dto.LoginRequest;
 import com.cap.resellers.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,5 +27,12 @@ public class MemberController {
     public ApiResponse<ApiResponse.CustomBody<Void>> createMember(@RequestBody CreateMemberRequest request) {
         memberService.save(request);
         return ApiResponseGenerator.success(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "로그인", description = "로그인합니다.")
+    @PostMapping("/member/login")
+    public ApiResponse<ApiResponse.CustomBody<Long>>login(@RequestBody LoginRequest request) {
+        Long memberId = memberService.login(request);
+        return ApiResponseGenerator.success(memberId, HttpStatus.OK);
     }
 }

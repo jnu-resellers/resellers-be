@@ -12,5 +12,6 @@ public record CreateAuctionRequest(@Schema(defaultValue = "LG 냉장고", descri
                                    @Schema(defaultValue = "문이 잘 안열려요.", description = "가격") String defect,
                                    @Schema(defaultValue = "010-0000-0000", description = "연락 수단") String contact,
                                    @Schema(defaultValue = "3",description = "경매 기간") Integer period,
-                                   @Schema(defaultValue = "10000", description = "가격 단위") Integer priceUnit) {
+                                   @Schema(defaultValue = "10000", description = "가격 단위") Integer priceUnit,
+                                   Long memberId) {
 }
