@@ -28,4 +28,12 @@ public class MemberService {
             throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
         }
     }
+
+    public String checkDuplication(String email) {
+        if(memberRepository.existsByEmail(email)) {
+            return "중복된 아이디입니다.";
+        } else {
+            return "사용 가능한 아이디입니다.";
+        }
+    }
 }

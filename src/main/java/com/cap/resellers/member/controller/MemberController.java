@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -34,5 +31,12 @@ public class MemberController {
     public ApiResponse<ApiResponse.CustomBody<Long>>login(@RequestBody LoginRequest request) {
         Long memberId = memberService.login(request);
         return ApiResponseGenerator.success(memberId, HttpStatus.OK);
+    }
+
+    @Operation(summary = "아이디 중복확인", description = "아이디 중복확인합니다.")
+    @GetMapping("/member/duplication")
+    public ApiResponse<ApiResponse.CustomBody<String>> checkDuplication(@RequestParam String email) {
+        String result = memberService.checkDuplication(email);
+        return ApiResponseGenerator.success(result, HttpStatus.OK);
     }
 }
