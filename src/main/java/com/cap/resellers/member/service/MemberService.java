@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
+    @Transactional
     public void save(CreateMemberRequest request) {
         Member member = Member.createMember(request.name(), request.email(), request.password(), request.bankName(), request.accountNumber(), request.contact());
         memberRepository.save(member);
