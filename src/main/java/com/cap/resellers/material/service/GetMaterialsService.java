@@ -23,6 +23,7 @@ public class GetMaterialsService {
                     materialRepository.findAll().stream()
                             .filter(material -> material.getAuction() == null)
                             .sorted(Comparator.comparing(Material::getId).reversed())
+                            .sorted(Comparator.comparing(material -> material.getProduct().getIsSold()))
                             .map(material -> {
                                 String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
                                 return GetMaterialsProductDto.of(filename, material, totalPrice(material));
@@ -35,6 +36,7 @@ public class GetMaterialsService {
                         .filter(material -> material.getAuction() == null)
                         .filter(material -> material.getItemType().getValue().equals(sortType))
                         .sorted(Comparator.comparing(Material::getId).reversed())
+                        .sorted(Comparator.comparing(material -> material.getProduct().getIsSold()))
                         .map(material -> {
                             String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
                             return GetMaterialsProductDto.of(filename, material, totalPrice(material));
