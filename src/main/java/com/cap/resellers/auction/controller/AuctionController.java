@@ -2,12 +2,10 @@ package com.cap.resellers.auction.controller;
 
 import com.cap.resellers.auction.dto.request.BidAuctionRequest;
 import com.cap.resellers.auction.dto.request.CreateAuctionRequest;
+import com.cap.resellers.auction.dto.response.GetAuctionBidsResponse;
 import com.cap.resellers.auction.dto.response.GetAuctionResponse;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
-import com.cap.resellers.auction.service.BidAuctionService;
-import com.cap.resellers.auction.service.CreateAuctionService;
-import com.cap.resellers.auction.service.GetAuctionService;
-import com.cap.resellers.auction.service.GetAuctionsService;
+import com.cap.resellers.auction.service.*;
 import com.cap.resellers.common.ApiResponse;
 import com.cap.resellers.common.ApiResponseGenerator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +24,7 @@ public class AuctionController {
     private final GetAuctionService getAuctionService;
     private final GetAuctionsService getAuctionsService;
     private final BidAuctionService bidAuctionService;
+    private final GetAuctionBidsService getAuctionBidsService;
 
 
     @PostMapping("/auction")
@@ -54,5 +53,12 @@ public class AuctionController {
     public ApiResponse<ApiResponse.CustomBody<Void>> bidAuction(@RequestBody BidAuctionRequest request) {
         Integer nowPrice = bidAuctionService.execute(request);
         return ApiResponseGenerator.success(nowPrice,HttpStatus.OK);
+    }
+
+    @GetMapping("/auction/{auctionId}/bid")
+    @Operation(summary = "경매 입찰 조회", description = "경매 입찰 목록을 조회합니다")
+    public ApiResponse<GetAuctionBidsResponse> getAuctionBids(@PathVariable Long auctionId) {
+        GetAuctionBidsResponse response = getAuctionBidsService.getAuctionBids(auctionId);
+        return ApiResponseGenerator.success(response,HttpStatus.OK);
     }
 }
