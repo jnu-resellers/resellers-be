@@ -1,6 +1,7 @@
 package com.cap.resellers.member.service;
 
 import com.cap.resellers.member.dto.CreateMemberRequest;
+import com.cap.resellers.member.dto.GetMemberInfoResponse;
 import com.cap.resellers.member.dto.LoginRequest;
 import com.cap.resellers.member.model.Member;
 import com.cap.resellers.member.repository.MemberRepository;
@@ -35,5 +36,10 @@ public class MemberService {
         } else {
             return "사용 가능한 아이디입니다.";
         }
+    }
+
+    public GetMemberInfoResponse getMemberInfo(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        return GetMemberInfoResponse.of(member.getName(), member.getEmail(), member.getContact(), member.getBankName(), member.getAccountNumber(), member.getId());
     }
 }
