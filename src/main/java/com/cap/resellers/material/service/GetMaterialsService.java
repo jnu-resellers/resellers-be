@@ -26,7 +26,7 @@ public class GetMaterialsService {
                             .sorted(Comparator.comparing(material -> material.getProduct().getIsSold()))
                             .map(material -> {
                                 String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
-                                return GetMaterialsProductDto.of(filename, material, totalPrice(material));
+                                return GetMaterialsProductDto.of(filename, material, totalPrice(material),null);
                             })
                             .toList()
             );
@@ -39,7 +39,7 @@ public class GetMaterialsService {
                         .sorted(Comparator.comparing(material -> material.getProduct().getIsSold()))
                         .map(material -> {
                             String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
-                            return GetMaterialsProductDto.of(filename, material, totalPrice(material));
+                            return GetMaterialsProductDto.of(filename, material, totalPrice(material),null);
                         })
                         .toList()
         );
@@ -51,7 +51,7 @@ public class GetMaterialsService {
                         .sorted(Comparator.comparing(Material::getId).reversed())
                         .map(material -> {
                             String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
-                            return GetMaterialsProductDto.of(filename, material, totalPrice(material));
+                            return GetMaterialsProductDto.of(filename, material, totalPrice(material),null);
                         })
                         .toList()
         );
