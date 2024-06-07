@@ -52,7 +52,7 @@ public class TradeController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    @Operation(summary = "거래 목록 조회", description = "거래 목록 조회")
+    @Operation(summary = "구매 목록 조회", description = "구매 목록 조회")
     @GetMapping("/trade/member/{memberId}")
     public ApiResponse<GetOwnTradeResponse> getOwnTrade(@PathVariable Long memberId) {
         GetOwnTradeResponse response = getOwnTradeService.execute(memberId);
