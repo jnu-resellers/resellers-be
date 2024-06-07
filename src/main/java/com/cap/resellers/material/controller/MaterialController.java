@@ -58,4 +58,11 @@ public class MaterialController {
         List<String> itemTypes = Arrays.stream(ItemType.values()).map(itemType -> itemType.getValue()).toList();
         return ApiResponseGenerator.success(itemTypes,HttpStatus.OK);
     }
+
+    @Operation(summary = "등록한 기자재 목록 조회", description = "등록한 기자재 목록을 조회합니다.")
+    @GetMapping("/board/materials/member/{memberId}")
+    public ApiResponse<GetMaterialsResponse> getMaterialsByMemberId(@PathVariable Long memberId) {
+        GetMaterialsResponse response = getMaterialsService.executeByMemberId(memberId);
+        return ApiResponseGenerator.success(response,HttpStatus.OK);
+    }
 }

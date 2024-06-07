@@ -45,6 +45,18 @@ public class GetMaterialsService {
         );
     }
 
+    public GetMaterialsResponse executeByMemberId(Long memberId) {
+        return GetMaterialsResponse.of(
+                materialRepository.findByMemberId(memberId).stream()
+                        .sorted(Comparator.comparing(Material::getId).reversed())
+                        .map(material -> {
+                            String filename = material.getProduct().getImages().stream().findFirst().get().getFileName();
+                            return GetMaterialsProductDto.of(filename, material, totalPrice(material));
+                        })
+                        .toList()
+        );
+    }
+
     private Integer totalPrice(Material material) {
         return material.getProduct().getPrice();
     }
