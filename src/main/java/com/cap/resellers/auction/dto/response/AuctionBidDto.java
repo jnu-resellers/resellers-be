@@ -8,7 +8,7 @@ public record AuctionBidDto(
         String nickname,
         Integer price,
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd'T'HH:mm", timezone = "Asia/Seoul")
         LocalDateTime createdAt) {
     public static AuctionBidDto of(String nickname, Integer price, LocalDateTime createdAt) {
         return new AuctionBidDto(nickname, price, createdAt);
