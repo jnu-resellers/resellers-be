@@ -14,7 +14,7 @@ public class GetAuctionBidsService {
     @Transactional(readOnly = true)
     public GetAuctionBidsResponse getAuctionBids(Long auctionId) {
         return GetAuctionBidsResponse.of(historyRepository.findByAuctionId(auctionId).stream()
-                .map(history -> AuctionBidDto.of(history.getMember().getName(), history.getPrice()))
+                .map(history -> AuctionBidDto.of(history.getMember().getName(), history.getPrice(), history.getCreatedDate()))
                 .toList());
     }
 }
