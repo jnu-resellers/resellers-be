@@ -1,8 +1,11 @@
 package com.cap.resellers.auction.service;
 
+import com.cap.resellers.auction.dto.GetMaterialsAuctionDto;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
+import com.cap.resellers.auction.dto.response.GetOwnAuctionResponse;
 import com.cap.resellers.auction.model.Auction;
 import com.cap.resellers.auction.repository.AuctionRepository;
+import com.cap.resellers.material.model.Material;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,5 +40,17 @@ public class GetAuctionsService {
                 .sorted((a1, a2) -> a2.getBidCount().compareTo(a1.getBidCount()))
                 .toList();
         return GetAuctionsResponse.of(auctions);
+    }
+
+    @Transactional(readOnly = true)
+    public GetOwnAuctionResponse executeByMemberId(Long memberId) {
+        return GetOwnAuctionResponse.from(auctionRepository.findByMemberId(memberId).stream()
+                .map(auction -> GetMaterialsAuctionDto.of(auction.getMaterial().getProduct().getImages().stream().findFirst().get().getFileName(),
+                        auction.getMaterial(),totalPrice(auction.getMaterial()), auction))
+                .toList());
+    }
+
+    private Integer totalPrice(Material material) {
+        return material.getProduct().getPrice();
     }
 }

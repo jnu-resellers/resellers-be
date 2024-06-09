@@ -5,6 +5,7 @@ import com.cap.resellers.auction.dto.request.CreateAuctionRequest;
 import com.cap.resellers.auction.dto.response.GetAuctionBidsResponse;
 import com.cap.resellers.auction.dto.response.GetAuctionResponse;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
+import com.cap.resellers.auction.dto.response.GetOwnAuctionResponse;
 import com.cap.resellers.auction.service.*;
 import com.cap.resellers.common.ApiResponse;
 import com.cap.resellers.common.ApiResponseGenerator;
@@ -59,6 +60,13 @@ public class AuctionController {
     @Operation(summary = "경매 입찰 조회", description = "경매 입찰 목록을 조회합니다")
     public ApiResponse<GetAuctionBidsResponse> getAuctionBids(@PathVariable Long auctionId) {
         GetAuctionBidsResponse response = getAuctionBidsService.getAuctionBids(auctionId);
+        return ApiResponseGenerator.success(response,HttpStatus.OK);
+    }
+
+    @Operation(summary = "등록한 경매 조회", description = "등록한 경매 목록을 조회합니다")
+    @GetMapping("/auction/member/{memberId}")
+    public ApiResponse<GetOwnAuctionResponse> getOwnAuction(@PathVariable Long memberId) {
+        GetOwnAuctionResponse response = getAuctionsService.executeByMemberId(memberId);
         return ApiResponseGenerator.success(response,HttpStatus.OK);
     }
 }

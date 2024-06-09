@@ -1,8 +1,11 @@
 package com.cap.resellers.auction.service;
 
+import com.cap.resellers.auction.dto.GetMaterialsAuctionDto;
 import com.cap.resellers.auction.dto.response.GetAuctionResponse;
+import com.cap.resellers.auction.dto.response.GetOwnAuctionResponse;
 import com.cap.resellers.auction.model.Auction;
 import com.cap.resellers.auction.repository.AuctionRepository;
+import com.cap.resellers.material.model.Material;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,4 +21,6 @@ public class GetAuctionService {
         Auction auction = auctionRepository.findById(auctionId).orElseThrow(NullPointerException::new);
         return GetAuctionResponse.of(auction);
     }
+
+
 }
