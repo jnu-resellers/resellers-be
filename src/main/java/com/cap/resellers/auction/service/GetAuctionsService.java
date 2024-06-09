@@ -1,10 +1,12 @@
 package com.cap.resellers.auction.service;
 
 import com.cap.resellers.auction.dto.GetMaterialsAuctionDto;
+import com.cap.resellers.auction.dto.RegisterAuctionStatus;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
 import com.cap.resellers.auction.dto.response.GetOwnAuctionResponse;
 import com.cap.resellers.auction.model.Auction;
 import com.cap.resellers.auction.repository.AuctionRepository;
+import com.cap.resellers.auction.repository.HistoryRepository;
 import com.cap.resellers.material.model.Material;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.List;
 public class GetAuctionsService {
 
     private final AuctionRepository auctionRepository;
+    private final HistoryRepository historyRepository;
 
 
     // 경매 목록 조회시 bidCount가 높은순으로 정렬해서 반환
@@ -46,11 +49,16 @@ public class GetAuctionsService {
     public GetOwnAuctionResponse executeByMemberId(Long memberId) {
         return GetOwnAuctionResponse.from(auctionRepository.findByMemberId(memberId).stream()
                 .map(auction -> GetMaterialsAuctionDto.of(auction.getMaterial().getProduct().getImages().stream().findFirst().get().getFileName(),
-                        auction.getMaterial(),totalPrice(auction.getMaterial()), auction))
+                        auction.getMaterial(),auction.getNowPrice(), auction, checkAuctionStatus(auction)))
                 .toList());
     }
 
-    private Integer totalPrice(Material material) {
-        return material.getProduct().getPrice();
-    }
+   private RegisterAuctionStatus checkAuctionStatus(Auction auction) {
+        if(auction.getDeadline().isAfter(LocalDateTime.now()))
+            return RegisterAuctionStatus.FORSALE;
+        else if(historyRepository.findByAuctionId(auction.getId()).isEmpty())
+            return RegisterAuctionStatus.FAILBID;
+        else
+            return RegisterAuctionStatus.SUCCESSBID;
+   }
 }

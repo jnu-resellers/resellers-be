@@ -5,15 +5,14 @@ import com.cap.resellers.material.model.Material;
 import lombok.Builder;
 
 @Builder
-public record GetMaterialsAuctionDto(String fileName, Long materialId, String productName, String itemType, Integer totalPrice, boolean isSold, Long auctionId) {
-    public static GetMaterialsAuctionDto of(String fileName, Material material, Integer totalPrice, Auction auction) {
+public record GetMaterialsAuctionDto(String fileName, String productName, String itemType, Integer nowPrice, String auctionStatus, Long auctionId) {
+    public static GetMaterialsAuctionDto of(String fileName, Material material, Integer nowPrice, Auction auction, RegisterAuctionStatus auctionStatus) {
         return GetMaterialsAuctionDto.builder()
                 .fileName(fileName)
-                .materialId(material.getId())
                 .productName(material.getProduct().getName())
                 .itemType(material.getItemType().getValue())
-                .totalPrice(totalPrice)
-                .isSold(material.getProduct().getIsSold())
+                .nowPrice(nowPrice)
+                .auctionStatus(auctionStatus.getValue())
                 .auctionId(auction.getId())
                 .build();
     }

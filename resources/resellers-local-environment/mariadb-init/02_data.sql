@@ -8,6 +8,7 @@ truncate PRODUCT_TB;
 truncate MEMBER_TB;
 truncate TRADE_TB;
 truncate AUCTION_TB;
+truncate HISTORY_TB;
 set foreign_key_checks = 1;
 
 -- Insert members into MEMBER_TB
