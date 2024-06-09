@@ -1,13 +1,12 @@
 package com.cap.resellers.auction.service;
 
-import com.cap.resellers.auction.dto.GetMaterialsAuctionDto;
+import com.cap.resellers.auction.dto.GetMaterialsRegisterAuctionDto;
 import com.cap.resellers.auction.dto.RegisterAuctionStatus;
 import com.cap.resellers.auction.dto.response.GetAuctionsResponse;
 import com.cap.resellers.auction.dto.response.GetOwnAuctionResponse;
 import com.cap.resellers.auction.model.Auction;
 import com.cap.resellers.auction.repository.AuctionRepository;
 import com.cap.resellers.auction.repository.HistoryRepository;
-import com.cap.resellers.material.model.Material;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,19 +45,19 @@ public class GetAuctionsService {
     }
 
     @Transactional(readOnly = true)
-    public GetOwnAuctionResponse executeByMemberId(Long memberId) {
-        return GetOwnAuctionResponse.from(auctionRepository.findByMemberId(memberId).stream()
-                .map(auction -> GetMaterialsAuctionDto.of(auction.getMaterial().getProduct().getImages().stream().findFirst().get().getFileName(),
+    public List<GetMaterialsRegisterAuctionDto> executeByMemberId(Long memberId) {
+        return auctionRepository.findByMemberId(memberId).stream()
+                .map(auction -> GetMaterialsRegisterAuctionDto.of(auction.getMaterial().getProduct().getImages().stream().findFirst().get().getFileName(),
                         auction.getMaterial(),auction.getNowPrice(), auction, checkAuctionStatus(auction)))
-                .toList());
+                .toList();
     }
 
    private RegisterAuctionStatus checkAuctionStatus(Auction auction) {
         if(auction.getDeadline().isAfter(LocalDateTime.now()))
-            return RegisterAuctionStatus.FORSALE;
+            return RegisterAuctionStatus.FOR_SALE;
         else if(historyRepository.findByAuctionId(auction.getId()).isEmpty())
-            return RegisterAuctionStatus.FAILBID;
+            return RegisterAuctionStatus.FAIL_BID;
         else
-            return RegisterAuctionStatus.SUCCESSBID;
+            return RegisterAuctionStatus.SUCCESS_BID;
    }
 }

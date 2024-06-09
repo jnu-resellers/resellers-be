@@ -1,5 +1,7 @@
 package com.cap.resellers.auction.controller;
 
+import com.cap.resellers.auction.dto.GetMaterialsBidAuctionDto;
+import com.cap.resellers.auction.dto.GetMaterialsRegisterAuctionDto;
 import com.cap.resellers.auction.dto.request.BidAuctionRequest;
 import com.cap.resellers.auction.dto.request.CreateAuctionRequest;
 import com.cap.resellers.auction.dto.response.GetAuctionBidsResponse;
@@ -14,6 +16,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -65,8 +69,15 @@ public class AuctionController {
 
     @Operation(summary = "등록한 경매 조회", description = "등록한 경매 목록을 조회합니다")
     @GetMapping("/auction/member/{memberId}")
-    public ApiResponse<GetOwnAuctionResponse> getOwnAuction(@PathVariable Long memberId) {
-        GetOwnAuctionResponse response = getAuctionsService.executeByMemberId(memberId);
+    public ApiResponse<List<GetMaterialsRegisterAuctionDto>> getOwnAuction(@PathVariable Long memberId) {
+        List<GetMaterialsRegisterAuctionDto> response = getAuctionsService.executeByMemberId(memberId);
+        return ApiResponseGenerator.success(response,HttpStatus.OK);
+    }
+
+    @Operation(summary = "입찰한 경매 조회", description = "입찰한 경매 목록을 조회합니다")
+    @GetMapping("/auction/member/{memberId}/bid")
+    public ApiResponse<List<GetMaterialsBidAuctionDto>> getOwnBidAuction(@PathVariable Long memberId) {
+        List<GetMaterialsBidAuctionDto> response = getAuctionBidsService.executeByMemberId(memberId);
         return ApiResponseGenerator.success(response,HttpStatus.OK);
     }
 }
