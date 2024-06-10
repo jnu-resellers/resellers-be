@@ -22,7 +22,8 @@ public record GetAuctionResponse(
         String writer,
         String description,
         String defect,
-        Integer priceUnit
+        Integer priceUnit,
+        Long memberId
 
 ) {
 
@@ -44,6 +45,7 @@ public record GetAuctionResponse(
                 .description(auction.getMaterial().getProduct().getDescription())
                 .defect(auction.getMaterial().getProduct().getDefect())
                 .priceUnit(auction.getPriceUnit())
+                .memberId(auction.getMaterial().getMember().getId())
                 .build();
     }
 }
