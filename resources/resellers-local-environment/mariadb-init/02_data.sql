@@ -22,9 +22,9 @@ VALUES (1, '이진혁','jh1234@gmail.com', 'gh1234@@' ,TIMESTAMPADD(MINUTE, -30,
 
 -- Insert products into PRODUCT_TB
 INSERT INTO PRODUCT_TB
-VALUES (1, TIMESTAMPADD(day , -84, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '이 LG 냉장고는 최신 기술로 제작되어 식품을 신선하게 보관합니다. 에너지 효율이 높고, 넓은 내부 공간이 특징입니다.', '외관에 약간의 긁힘이 있습니다.', 'LG 냉장고 SK-1234', 585000, 0, 2),
-       (2, TIMESTAMPADD(day , -82, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '이 LG 냉장고는 강력한 냉각 성능을 자랑하며, 다양한 온도 조절 옵션을 제공합니다. 컴팩트한 디자인으로 주방에 잘 어울립니다.', '냉각 기능에 약간의 문제 있음', 'LG 냉장고 QA-503', 756000, 0, 2),
-       (3, TIMESTAMPADD(day , -80, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), 'LG 냉장고 CQS-34 모델은 뛰어난 보냉 기능과 세련된 디자인을 겸비하고 있습니다. 공간 활용이 뛰어나고, 소음이 적어 쾌적한 사용이 가능합니다.', '내부 선반 약간 파손', 'LG 냉장고 CQS-34', 470000, 0, 2),
+VALUES (1, TIMESTAMPADD(day , -84, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '이 LG 냉장고는 최신 기술로 제작되어 식품을 신선하게 보관합니다. 에너지 효율이 높고, 넓은 내부 공간이 특징입니다.', '외관에 약간의 긁힘이 있습니다.', 'LG 냉장고 SK-1234', 500000, 0, 2),
+       (2, TIMESTAMPADD(day , -82, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '이 LG 냉장고는 강력한 냉각 성능을 자랑하며, 다양한 온도 조절 옵션을 제공합니다. 컴팩트한 디자인으로 주방에 잘 어울립니다.', '냉각 기능에 약간의 문제 있음', 'LG 냉장고 QA-503', 600000, 0, 2),
+       (3, TIMESTAMPADD(day , -80, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), 'LG 냉장고 CQS-34 모델은 뛰어난 보냉 기능과 세련된 디자인을 겸비하고 있습니다. 공간 활용이 뛰어나고, 소음이 적어 쾌적한 사용이 가능합니다.', '내부 선반 약간 파손', 'LG 냉장고 CQS-34', 700000, 0, 2),
        (4, TIMESTAMPADD(day , -78, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '삼성 냉장고 TQR-312는 고효율 에너지 절약 기능과 넓은 수납 공간을 제공하여 가족 모두에게 적합합니다. 스마트 냉각 시스템으로 음식이 더 오래 신선합니다.', '내부 칸막이에 약간의 손상이 있습니다.', '삼성 냉장고 TQR-312', 650000, 1, 2),
        (5, TIMESTAMPADD(day , -76, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '삼성 냉장고 RSP-13는 작은 크기에도 불구하고 효율적인 공간 활용과 강력한 냉동 기능을 제공합니다. 소형 주방에 이상적입니다.', '문짝 경첩 약간 헐거움', '삼성 냉장고 RSP-13', 410000, 1, 2),
        (6, TIMESTAMPADD(day , -74, CURRENT_TIMESTAMP), TIMESTAMPADD(MINUTE, 30, CURRENT_TIMESTAMP), '이 LG 냉장고 TPS-334는 인체공학적 설계와 편리한 기능으로 사용하기 매우 편리합니다. 에너지 소비를 최소화하면서 최대의 효율을 제공합니다.', '내부 조명 불량', 'LG 냉장고 TPS-334', 500000, 1, 2),
